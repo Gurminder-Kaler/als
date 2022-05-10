@@ -1,0 +1,1 @@
+<h2 class="navbar-brand text-dark">Animal Lovers' Society</h2>
