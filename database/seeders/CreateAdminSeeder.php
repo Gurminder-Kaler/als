@@ -21,5 +21,6 @@ class CreateAdminSeeder extends Seeder
         $user->email = "admin@admin.com";
         $user->password = "$2y$10$JNHONdunIbd88tCTmCp6ROoYsG.s9mhhDOC9HfJKJRg55qGJMs0UC";
         $user->gender = "male";
+        $user->save();
     }
 }
