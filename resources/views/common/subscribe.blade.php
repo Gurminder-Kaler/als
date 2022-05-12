@@ -27,7 +27,7 @@
                 <div class="row">
                   <div class="col-md-7">
                     <fieldset>
-                      <input required name="newsletter_email" type="email" class="form-control"
+                      <input required name="newsletter_email" type="email" class="superPlaceholder form-control"
                       placeholder="Your Email..." >
                     </fieldset>
                   </div>
