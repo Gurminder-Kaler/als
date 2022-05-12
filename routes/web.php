@@ -4,11 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontEndController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductCategoryController;
 use App\Http\Controllers\Backend\DonationController;
+use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Frontend\AbcController;
+// use App\Http\Controllers\Frontend\CartController;
 use App\Http\Middleware\Admin; 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +24,7 @@ use App\Http\Middleware\Admin;
 | contains the "web" middleware group. Now create something great!
 |
 */
- 
+  
 Route::controller(FrontEndController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/about', 'about');
@@ -33,11 +37,11 @@ Route::controller(FrontEndController::class)->group(function () {
     Route::post('/submitContactForm', 'submitContactForm'); 
 });
 
-Route::controller(CartController::class)->middleware('auth')->group(function () {
+// Route::controller(CartController::class)->middleware('auth')->group(function () {
     
-    Route::post('/addToCart', 'addToCart');
+//     Route::post('/addToCart', 'addToCart');
 
-});
+// });
  
 Route::middleware([Admin::class])
 ->controller(AdminController::class)
@@ -51,10 +55,27 @@ Route::middleware([Admin::class])
 ->group(function () {
     Route::get('/admin/product', 'index');
     Route::get('/admin/product/create', 'create');
+    Route::post('/admin/product/featuredStatus', 'changeFeaturedStatus');
     Route::post('/admin/product/store', 'store');
     Route::get('/admin/product/edit/{id}', 'edit');
-    Route::post('/admin/product/update/{id}', 'update');
+    Route::post('/admin/product/update', 'update');
     Route::post('/admin/product/delete/{id}', 'delete');
+});
+ 
+ 
+Route::middleware([Admin::class])
+->controller(AboutController::class)
+->group(function () {
+    Route::get('/admin/about', 'index');
+    Route::post('/admin/about/update', 'update');
+});
+ 
+ 
+Route::middleware([Admin::class])
+->controller(SiteSettingController::class)
+->group(function () {
+    Route::get('/admin/site-setting', 'index');
+    Route::post('/admin/site-setting/update', 'update');
 });
  
  

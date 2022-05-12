@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Product;
-use App\Models\SiteSetting;
+use App\Models\About;
+use App\Models\ContactDetail;
 use App\Models\Subscriber;
 use App\Models\ContactQuery;
 use App\Models\ProductCategory;
@@ -16,14 +17,14 @@ class FrontEndController extends Controller
     // home page
     public function index() {
         $banner = Banner::find(1);
-        return view('frontend.index', compact('banner'));
+        $featuredProducts = Product::where('deleted_at', null)->where('featured_status', 1)->get();
+        return view('frontend.index', compact('banner', 'featuredProducts'));
     }
 
     // all - products page
     public function privacyPolicy() {
-        $products = SiteSetting::paginate(4);
-        $productCategories = ProductCategory::all();
-        return view('frontend.allProducts', compact('products', 'productCategories'));
+        $contactDetails = ContactDetail::find(1);
+        return view('frontend.privacyPolicy', compact('contactDetails'));
     }
 
     // all - products page
@@ -45,9 +46,11 @@ class FrontEndController extends Controller
         return view('frontend.singleProduct', compact('product'));
     }
 
+
     // about page
     public function about() {
-        return view('frontend.about');
+        $about = About::find(1);
+        return view('frontend.about', compact('about'));
     }
 
     // contact page

@@ -21,7 +21,7 @@
     {{-- <link rel="stylesheet" href="{{asset('backend/css/review.css') }}"> --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"> --}}
     {{-- <link href="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"> --}}
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <style>
         .editable-error-block.help-block {
             color: red;
@@ -91,10 +91,17 @@
                     </a>
                 </li>
 
-                <li class="nav-item " style="background: #000">
+                <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/user') }}">
                         <i class="fa fa-users"></i>
                         <p> Users </p>
+                    </a>
+                </li>
+
+                <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/about') }}">
+                        <i class="fa fa-users"></i>
+                        <p> About </p>
                     </a>
                 </li>
 
@@ -121,6 +128,7 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item" style="background: #2169b3;">
                     <a data-toggle="collapse" href="#collapseExample44" class="nav-link">
                         <i class="material-icons">inventory</i> <p>Manage Orders <b class="caret"></b></p>
@@ -135,6 +143,13 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/site-setting') }}">
+                        <i class="fa fa-cog"></i>
+                        <p> Site Settings </p>
+                    </a>
                 </li>
 
                 <li class="nav-item" style="background: #2169b3;">
@@ -161,15 +176,12 @@
                     </div>
                 </li>
 
-
-
-                <li class="nav-item " style="background: #000">
+                <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/banner') }}">
                         <i class="material-icons">slideshow</i>
                         <p> Banner Manager </p>
                     </a>
                 </li>
-
 
             </ul>
         </div>
@@ -263,7 +275,6 @@
         </div>
     </footer>
     <!-- End Right content here -->
-
 </div>
 </div><!-- /Page Container -->
 <!--   Core JS Files   -->
@@ -322,9 +333,11 @@
 {{-- <script src="https://www.dropzonejs.com/js/dropzone.js?v=1533562669"></script> --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-{{-- <script src="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/js/bootstrap-editable.js"></script> --}}
-<script>
+{{--<script src="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/js/bootstrap-editable.js"></script> --}}
+@yield('afterScript')
+{{-- <script>
     $(document).ready(function() {
+
         $('.checkbox-check').change(function() {
             //$("#hit_this").hide();
             if($(this).is(":checked")) {
@@ -377,6 +390,7 @@
                 return false;
             }
         });
+
         $(".sliderStatus").on('click',function() {
             var id = $(this).attr('id');
             // var id = $(this).attr('id');
@@ -394,6 +408,7 @@
                 }
             });
         }); 
+
         $(".featuredStatus").on('click',function() {
             var id = $(this).attr('id');
             // var id = $(this).attr('id');
@@ -413,7 +428,6 @@
                 }
             });
         });
-
 
         $('#txtInput').keydown(function(event) {
             var wordLen = 27,
@@ -437,6 +451,7 @@
                     'background':'green' });
             }
         });
+
     });
 
     $(document).on('change', '.file-field input[type="file"]', function () {
@@ -451,33 +466,32 @@
         path_input.trigger('change');
     });
 
-    // bkLib.onDomLoaded(function() {
-    //     nicEditors.editors.push(
-    //         new nicEditor().panelInstance(
-    //             document.getElementById('myNicEditor')
-    //         )
-    //     );
-    // });
+    bkLib.onDomLoaded(function() {
+        nicEditors.editors.push(
+            new nicEditor().panelInstance(
+                document.getElementById('myNicEditor')
+            )
+        );
+    });
 
 
-    // bkLib.onDomLoaded(function() {
-    //     nicEditors.editors.push(
-    //         new nicEditor().panelInstance(
-    //             document.getElementById('myNicEditor1')
-    //         )
-    //     );
-    // });
+    bkLib.onDomLoaded(function() {
+        nicEditors.editors.push(
+            new nicEditor().panelInstance(
+                document.getElementById('myNicEditor1')
+            )
+        );
+    });
 
-    // bkLib.onDomLoaded(function() {
-    //     nicEditors.editors.push(
-    //         new nicEditor().panelInstance(
-    //             document.getElementById('myNicEditor2')
-    //         )
-    //     );
-    // });
+    bkLib.onDomLoaded(function() {
+        nicEditors.editors.push(
+            new nicEditor().panelInstance(
+                document.getElementById('myNicEditor2')
+            )
+        );
+    });
 
-
-</script>
+</script> --}}
 
 {{-- <script>
 function initAutocomplete() {

@@ -34,16 +34,16 @@
                         <div class='form-row row'>
                             <div class='col-12 form-group required'>
                                 <label class='control-label'>Name on Card</label> 
-                                <input class='form-control' size='12' type='text'>
+                                <input value="Gurminder Singh" class='form-control' size='12' type='text'>
                             </div>
                             <div class='col-10 form-group required'>
                                 <label class='control-label'>Card Number</label> 
-                                <input autocomplete='off' class='form-control card-number' size='20'
+                                <input value="4242424242424242" autocomplete='off' class='form-control card-number' size='20'
                                     type='text'>
                             </div> 
                             <div class='col-2 form-group cvc required'>
                                 <label class='control-label'>CVC</label> 
-                                <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                <input autocomplete='off' value="123" class='form-control card-cvc' placeholder='ex. 311' size='4'
                                     type='text'>
                             </div>
                             <div class='col-6 form-group expiration required'>
@@ -55,7 +55,7 @@
                                         $array = ["01", "02", "03", "04","05", "06", "07", "08", "09", "10", "11", "12"]; 
                                     @endphp
                                     @foreach($array as $a) 
-                                        <option value="{{$a}}">{{$a}}</option>
+                                        <option @if($a == "01") value="{{$a}}" @endif>{{$a}}</option>
                                     @endforeach
                                     @endphp
                                 </select>
@@ -67,7 +67,7 @@
                                     type='text'> --}}
                                 <select class="form-control card-expiry-year" >
                                     @for($i = 2022; $i < 2050; $i++) 
-                                        <option value="{{$i}}">{{$i}}</option>
+                                        <option @if($i == 2023) selected @endif value="{{$i}}">{{$i}}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -76,7 +76,7 @@
                                 <label class='control-label'>Donation Amount</label> 
                                 <input
                                     class='form-control card-expiry-year' placeholder='Enter the amount in Canadian dollars' size='4'
-                                    type='number' min="3" max="9999">
+                                    type='number' value="100" min="3" max="9999">
                             </div>
 
                             <div class='col-3 form-group expiration required'>

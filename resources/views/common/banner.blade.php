@@ -1,5 +1,5 @@
 <div class="banner" style="
-background-image: url({{asset('/storage/banner/'.$banner->img.'')}});">
+background-image: url({{asset('/storage/banner/'.(isset($banner) && $banner->img !== null) ? $banner->img.'' : 'placeholder.jpeg')}});">
     <div class="container">
       <div class="row">
         <div class="col-md-12">

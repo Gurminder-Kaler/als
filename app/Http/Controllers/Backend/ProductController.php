@@ -174,17 +174,17 @@ class ProductController extends Controller
        }
        $data->update();
    }
-   public function bestSellerStatus(Request $request)
+   public function changeFeaturedStatus(Request $request)
    {
        $id = $request->id;
        $data = Product::find($id);
-       if($data->best_seller==1)
+       if($data->featured_status==1)
        {
-           $data->best_seller = 0;
+           $data->featured_status = 0;
        }
        else
        {
-           $data->best_seller = 1;
+           $data->featured_status = 1;
        }
        $data->update();
    }

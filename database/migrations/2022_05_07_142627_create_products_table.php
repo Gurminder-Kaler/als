@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->text('images');
             $table->integer('max_no_of_products');
             $table->integer('discount')->nullable();
-            $table->boolean('best_seller')->default(0);
+            $table->boolean('featured_status')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

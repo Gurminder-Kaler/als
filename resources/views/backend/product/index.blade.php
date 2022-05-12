@@ -20,7 +20,7 @@
                             <th>Category/Brand</th>
                             <th>Cost/Discount</th>
                             <th>Image</th>
-                            <th>Best Seller Status</th>
+                            <th>Featured Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -34,7 +34,7 @@
                                 {{-- <td>{{fetch_category($item->category_id)->title}} / {{ fetch_brand($item->brand_id)->title}}</td> --}}
                                 <td>${{$item->price}} / {{$item->discount}} %</td>
                                 <td><img src="{{asset('/storage/product/'.$item->img.'')}}" style="height: 60px;width: 80px"></td>
-                                <td><input type="checkbox" class="bestSellerStatus" value="{{$item->id}}" @if($item->best_seller==1) checked @endif></td>
+                                <td><input type="checkbox" class="featuredStatus" value="{{$item->id}}" @if($item->featured_status==1) checked @endif></td>
                                 <td>
                                     {{-- <a href="{{ url('/product/' . $item->id) }}" title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a> --}}
                                     <a href="{{ url('/admin/product/edit/' . $item->id . '') }}" title="Edit User"><button class="mb-2 mr-2 btn btn-shadow-info btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button></a>
@@ -75,14 +75,15 @@
 @endsection
 @section('afterScript')
 <script>
-     var table = $('#table').DataTable({
-        'responsive': true
-    });
-     $('.bestSellerStatus').on('click',function(e){
-        var id = $(this).val();
-         $.ajax({
+    $(document).ready(function() {
+        var table = $('#table').DataTable({
+            'responsive': true
+        });
+        $('.featuredStatus').on('click',function(e) {
+            var id = $(this).val();
+            $.ajax({
                 type: "POST",
-                url: "/admin/bestSellerStatus",
+                url: "/admin/product/featuredStatus",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -95,7 +96,7 @@
                     }
                 }
             });
-
+        });
      });
 </script>
 @endsection
