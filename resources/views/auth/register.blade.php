@@ -35,7 +35,7 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderrorp
                             </div>
                         </div>
                         <div class="row mb-3">
