@@ -11,9 +11,7 @@ use App\Http\Controllers\Backend\ProductCategoryController;
 use App\Http\Controllers\Backend\DonationController;
 use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Frontend\AbcController;
-// use App\Http\Controllers\Frontend\CartController;
-use App\Http\Middleware\Admin; 
+use App\Http\Middleware\Admin;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,22 +24,39 @@ use App\Http\Middleware\Admin;
 */
   
 Route::controller(FrontEndController::class)->group(function () {
+    
     Route::get('/', 'index');
     Route::get('/about', 'about');
     Route::get('/contact', 'contact');
     Route::get('/donate', 'donate');
     Route::get('/products', 'allProducts');
     Route::get('/privacy-policy', 'privacyPolicy');
-    Route::get('/product/{slug}', 'singleProduct'); 
-    Route::post('/subscribeToNewsletter', 'subscribeToNewsletter'); 
-    Route::post('/submitContactForm', 'submitContactForm'); 
+    Route::get('/product/{slug}', 'singleProduct');
+    Route::post('/subscribeToNewsletter', 'subscribeToNewsletter');
+    Route::post('/submitContactForm', 'submitContactForm');
+    Route::post('/updateProfile', 'updateProfile');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/myOrders', 'myOrders');
+        Route::post('/submitDonation', 'submitDonation');
+        Route::get('/myAddresses', 'myAddresses');
+        Route::get('/myProfile', 'myProfile');
+        Route::post('/placeOrder', 'placeOrder');
+        Route::get('/checkout', 'checkout')->middleware(['checkout','checkAddress']);
+        Route::get('/myCart', 'myCart'); 
+        Route::get('/changePassword', 'changePasswordView');  
+        Route::get('/myDonations', 'myDonations'); 
+        Route::post('/changePassword', 'changePassword'); 
+        Route::post('/addMyAddress', 'addMyAddress'); 
+        Route::post('/addressSelect', 'addressSelect');
+        Route::post('/addToCart', 'addToCart');
+        Route::post('/cart/increase', 'increaseQuantity');
+        Route::post('/cart/decrease', 'decreaseQuantity');
+        Route::post('/cart/remove', 'removeItem');
+    });
+
 });
-
-// Route::controller(CartController::class)->middleware('auth')->group(function () {
-    
-//     Route::post('/addToCart', 'addToCart');
-
-// });
+ 
  
 Route::middleware([Admin::class])
 ->controller(AdminController::class)
@@ -53,6 +68,7 @@ Route::middleware([Admin::class])
 Route::middleware([Admin::class])
 ->controller(ProductController::class)
 ->group(function () {
+
     Route::get('/admin/product', 'index');
     Route::get('/admin/product/create', 'create');
     Route::post('/admin/product/featuredStatus', 'changeFeaturedStatus');
@@ -60,6 +76,7 @@ Route::middleware([Admin::class])
     Route::get('/admin/product/edit/{id}', 'edit');
     Route::post('/admin/product/update', 'update');
     Route::post('/admin/product/delete/{id}', 'delete');
+
 });
  
  
@@ -92,12 +109,14 @@ Route::middleware([Admin::class])
 Route::middleware([Admin::class])
 ->controller(ProductCategoryController::class)
 ->group(function () {
+
     Route::get('/admin/productCategory', 'index');
     Route::get('/admin/productCategory/create', 'create');
     Route::post('/admin/productCategory/store', 'store');
     Route::get('/admin/productCategory/edit/{id}', 'edit');
     Route::post('/admin/productCategory/update/{id}', 'update');
     Route::post('/admin/productCategory/delete/{id}', 'delete');
+
 });
  
  
@@ -123,11 +142,9 @@ Route::middleware([Admin::class])
     Route::post('/admin/donation/delete/{id}', 'delete');
 });
 
-Route::get('/stripe', [DonationController::class, 'stripe']);
-Route::post('/stripe', [DonationController::class, 'stripePost'])->name('stripe.post');
+Route::get('/stripe', [DonationController::class, 'stripe']); 
  
 Route::middleware([Admin::class])
-
 ->controller(UserController::class)
 ->group(function () {
     Route::get('/admin/user', 'index');
@@ -137,7 +154,6 @@ Route::middleware([Admin::class])
     Route::post('/admin/user/update/{id}', 'update');
     Route::post('/admin/user/delete/{id}', 'delete');
 });
-
 
 Auth::routes();
 

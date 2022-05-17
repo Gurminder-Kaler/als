@@ -15,7 +15,8 @@ class AddGenderColumnToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('gender');
+            $table->string('gender')->nullable();
+            $table->string('profile_photo')->nullable();
         });
     }
 
@@ -29,6 +30,7 @@ class AddGenderColumnToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->dropColumn('gender');
+            $table->dropColumn('profile_photo');
         });
     }
 }

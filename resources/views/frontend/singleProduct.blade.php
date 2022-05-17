@@ -1,6 +1,5 @@
 @extends('layout.frontendlayout')
 @section('body')
-<!-- Single Starts Here -->
 <div class="single-product">
    <div class="container">
       <div class="row">
@@ -45,23 +44,38 @@
          </div>
          <div class="col-md-6">
             <div class="right-content">
-               <h4>{{$product->name}}</h4>
+               <h4>{{$product->title}}</h4>
                <h6>${{$product->price}}</h6>
                <p>{{$product->desc}} </p>
-               <span>7 left on stock</span>
-               <form action="{{url('/addToCart')}}" method="post" >
+               {{-- <span>7 left on stock</span> --}}
+               <form action="{{url('/placeOrder')}}" method="post" >
                   @csrf
                   <label for="quantity">Quantity:</label>
                   <input name="quantity" type="quantity" class="quantity-text" id="quantity"
-                     value="1">
-                  <input type="submit" class="button" value="Order Now!">
+                     value="1" size="4">
+                  <button type="submit" class="button" >Order NOW!</button>
+                  <button type="button" id="addToCart" class="button"><i class="fa fa-shopping-cart"></i> ADD TO CART</button>
                </form>
                <div class="down-content">
                   <div class="categories">
-                     <h6>Category: <span><a href="#">Pants</a>,<a href="#">Women</a>,<a href="#">Lifestyle</a></span></h6>
+                     <h6>Category: 
+                        {{$product->category ? $product->category->title : "None"}}
+                     </h6>
                   </div>
                   <div class="share">
-                     <h6>Share: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
+                     <h6>
+                     Share: 
+                     @php
+                        $siteSetting = \App\Models\SiteSetting::find(1);
+                     @endphp
+                     @if($siteSetting)
+                     <span>
+                        <a href="{{$siteSetting->facebook}}"><i class="fa fa-facebook"></i></a>
+                        <a href="{{$siteSetting->twitter}}"><i class="fa fa-twitter"></i></a>
+                        <a href="{{$siteSetting->instagram}}"><i class="fa fa-instagram"></i></a>
+                     </span>
+                     @endif
+                     </h6>
                   </div>
                </div>
             </div>
@@ -69,86 +83,34 @@
       </div>
    </div>
 </div>
-<!-- Single Page Ends Here -->
-<!-- Similar Starts Here -->
-<div class="featured-items">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="section-heading">
-               <div class="line-dec"></div>
-               <h1>You May Also Like</h1>
-            </div>
-         </div>
-         <div class="col-md-12">
-            <div class="owl-carousel owl-theme">
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-01.jpg" alt="Item 1">
-                     <h4>Proin vel ligula</h4>
-                     <h6>$15.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-02.jpg" alt="Item 2">
-                     <h4>Erat odio rhoncus</h4>
-                     <h6>$25.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-03.jpg" alt="Item 3">
-                     <h4>Integer vel turpis</h4>
-                     <h6>$35.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-04.jpg" alt="Item 4">
-                     <h4>Sed purus quam</h4>
-                     <h6>$45.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-05.jpg" alt="Item 5">
-                     <h4>Morbi aliquet</h4>
-                     <h6>$55.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-06.jpg" alt="Item 6">
-                     <h4>Urna ac diam</h4>
-                     <h6>$65.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-04.jpg" alt="Item 7">
-                     <h4>Proin eget imperdiet</h4>
-                     <h6>$75.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-05.jpg" alt="Item 8">
-                     <h4>Nullam risus nisl</h4>
-                     <h6>$85.00</h6>
-                  </div>
-               </a>
-               <a href="single-product.html">
-                  <div class="featured-item">
-                     <img src="assets/images/item-06.jpg" alt="Item 9">
-                     <h4>Cras tempus</h4>
-                     <h6>$95.00</h6>
-                  </div>
-               </a>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- Similar Ends Here -->
+@include('common.similarProducts')
+@endsection
+@section('script')
+<script>
+$(document).ready(function() {
+   $('#addToCart').on('click',function(e) {
+      var quantity = $('#quantity').val();
+      $.ajax({
+         type: "POST",
+         url: "/addToCart",
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         data: {
+            quantity: quantity,
+            product_id: {{$product->id}},
+         },
+         success: function (res) {
+         window.location.reload();
+         }
+      });
+   });
+});
+  </script>
+@endsection
+
+@section('toastr_js')
+  @jquery
+  @toastr_js
+  @toastr_render
 @endsection

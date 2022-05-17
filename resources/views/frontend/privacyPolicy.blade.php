@@ -2,7 +2,7 @@
 @section('body')
 <div class="container">
     <div class="row my-5">
-        <div class="col-6 offset-3">
+        <div class="col-10 offset-1">
             <div class="panel panel-default credit-card-box ">
                 <div class="panel-heading display-table my-4" >
                     <div class="row display-tr" >
@@ -14,7 +14,7 @@
                 </div>
                 <div class="panel-body"> 
                     <p> 
-                        {!!$contactDetails->privacy_policy!!}
+                        {!!$siteSetting->privacy_policy!!}
                     </p>
                 </div>
             </div>        

@@ -3,13 +3,13 @@
 <div class="featured-page">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-5 col-sm-12">
           <div class="section-heading">
             <div class="line-dec"></div>
             <h1>Support us by purchasing the products.</h1>
           </div>
         </div>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-7 col-sm-12">
           <div id="filters" class="button-group">
             <button class="btn btn-primary" data-filter="*">All Products</button>
             @if(isset($productCategories) && $productCategories->count() > 0)
@@ -63,3 +63,9 @@
   $('nav').find('.relative').addClass('d-none');
 </script>
 @endsection --}}
+
+@section('toastr_js')
+  @jquery
+  @toastr_js
+  @toastr_render
+@endsection

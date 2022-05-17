@@ -79,12 +79,15 @@ a {
 	background-color: #fff!important;
 	border-bottom: 1px solid #eee;
 }
+.myPink {
+	color:#e87085
+}
 #navbarResponsive {
 	z-index: 999;
 	position: absolute;
-	left: 50%;
+	left: 27%;
 	top: 105px;
-	transform: translateX(-50%);
+	transform: translateX(-20%);
 }
 .navbar-dark .navbar-nav .nav-item {
 	margin: 0px 15px;

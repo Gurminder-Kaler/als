@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->text('company_house_no');
             $table->string('country');
             $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            $table->string('province')->nullable();
             $table->string('zip_code');
             $table->string('address_line_one');
             $table->string('address_line_two')->nullable();

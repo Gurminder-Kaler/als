@@ -177,7 +177,7 @@ class ProductController extends Controller
    public function changeFeaturedStatus(Request $request)
    {
        $id = $request->id;
-       $data = Product::find($id);
+       $data = Product::findOrFail($id);
        if($data->featured_status==1)
        {
            $data->featured_status = 0;
