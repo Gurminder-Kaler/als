@@ -6,7 +6,7 @@
   <div class="featured-items">
     <div class="container">
       <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-12 ">
           <div class="section-heading">
           <div class="line-dec"></div>
             <h1>My Orders</h1>
@@ -17,21 +17,31 @@
                 <table class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Donation Amount($)</th>
+                      <th scope="col">Order No.</th>
+                      <th scope="col">Products</th>
                       <th scope="col">Transaction Id</th>
                       <th scope="col">Date and Time</th>
+                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($orders as $a)
+                    @foreach($orders as $o)
+                    
                     <tr>
                       {{-- {{dd($selectedAddress)}} --}}
                     
                       <td>{{$loop->iteration}}</td>
-                      <td>{{$a->amount}}</td>
-                      <td>{{$a->transaction_id}}</td>
-                      <td>{{$a->created_at}}</td>
+                      <td>
+                        @foreach(explode(',',$o->product_ids) as $p)
+                          @php 
+                            $product = \App\Models\Product::where('id', $p)->first();
+                          @endphp
+                         {{$loop->iteration}} - {{$product->title}} <br>
+                        @endforeach
+                      </td>
+                      <td>{{$o->transaction_id}}</td>
+                      <td>{{$o->created_at}}</td>
+                      <td>{{$o->status}}</td>
                       {{-- <td>{{$a->type}}</td> --}}
                     </tr> 
                     @endforeach

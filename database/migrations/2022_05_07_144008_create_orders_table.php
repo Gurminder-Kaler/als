@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('quantities');
             $table->string('product_ids');
             $table->string('discount')->comment('total discount');
-            $table->integer('total_cost');
+            $table->float('total_cost');
             $table->integer('shipping_address_id');
             $table->integer('billing_address_id');
             $table->string('payment_method')->nullable();

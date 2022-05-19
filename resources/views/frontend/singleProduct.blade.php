@@ -48,13 +48,19 @@
                <h6>${{$product->price}}</h6>
                <p>{{$product->desc}} </p>
                {{-- <span>7 left on stock</span> --}}
-               <form action="{{url('/placeOrder')}}" method="post" >
+               
+               {{-- <form action="{{url('/placeOrder')}}" method="post">
+                  @csrf
+                  <input name="quantity" type="hidden" value="1" size="4">
+                  <input name="product_id" type="hidden" value="{{$product->id}}" value="1" size="4">
+                  <button type="submit" class="button" >Order Single Item NOW!</button>
+               </form> --}}
+               <form action="{{url('/addToCart')}}" method="post">
                   @csrf
                   <label for="quantity">Quantity:</label>
-                  <input name="quantity" type="quantity" class="quantity-text" id="quantity"
-                     value="1" size="4">
-                  <button type="submit" class="button" >Order NOW!</button>
-                  <button type="button" id="addToCart" class="button"><i class="fa fa-shopping-cart"></i> ADD TO CART</button>
+                  <input name="quantity" type="number" class="quantity-text" value="1" size="4">
+                  <input name="product_id" type="hidden" value="{{$product->id}}" size="4">
+                  <button type="submit" class="button"><i class="fa fa-shopping-cart"></i> ADD TO CART</button>
                </form>
                <div class="down-content">
                   <div class="categories">
@@ -88,27 +94,26 @@
 @section('script')
 <script>
 $(document).ready(function() {
-   $('#addToCart').on('click',function(e) {
-      var quantity = $('#quantity').val();
-      $.ajax({
-         type: "POST",
-         url: "/addToCart",
-         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         data: {
-            quantity: quantity,
-            product_id: {{$product->id}},
-         },
-         success: function (res) {
-         window.location.reload();
-         }
-      });
-   });
+   // $('#addToCart').on('click',function(e) {
+   //    var quantity = $('#quantity').val();
+   //    $.ajax({
+   //       type: "POST",
+   //       url: "/addToCart",
+   //       headers: {
+   //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   //       },
+   //       data: {
+   //          quantity: quantity,
+   //          product_id: {{$product->id}},
+   //       },
+   //       success: function (res) {
+   //          window.location.reload();
+   //       }
+   //    });
+   // });
 });
   </script>
 @endsection
-
 @section('toastr_js')
   @jquery
   @toastr_js

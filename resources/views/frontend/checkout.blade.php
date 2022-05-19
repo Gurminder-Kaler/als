@@ -115,13 +115,14 @@
                           @foreach($addresses as $a)
                           <tr>
                             {{-- {{dd($selectedAddress)}} --}}
-                            <th scope="row"><input type="checkbox" 
+                            <th scope="row">
+                              <input type="radio" 
                                 @if($selectedAddress != null) 
-                                @if($a->id == $selectedAddress->id) 
-                                checked 
+                                  @if($a->id == $selectedAddress->id) 
+                                    checked 
+                                  @endif
                                 @endif
-                                @endif
-                                class="addressSelect" value="{{$a->id}}" />
+                                class="addressSelect" name="address" value="{{$a->id}}" />
                             </th>
                             <td>{{$a->company_house_no}}</td>
                             <td>{{$a->address_line_one . ' / ' . $a->address_line_two}}</td>
@@ -148,7 +149,7 @@
           </div>
           <form 
               role="form" 
-              action="{{ url('/placeOrder') }}" 
+              action="{{ url('/placeCartOrder') }}" 
               method="post" 
               class="require-validation"
               data-cc-on-file="false"
@@ -233,6 +234,26 @@
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.addressSelect').on('click', function(){
+      let id = $(this).val();
+      $.ajax({
+        type: "POST",
+        url: "/addressSelect",
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          id: id,
+        },
+        success: function (res) {
+          toastr.success('Your default address is selected!');
+        }
+      });
+    });
+  });
+</script>
 <script type="text/javascript">
 $(function() {
    

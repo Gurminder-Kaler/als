@@ -7,8 +7,9 @@ use App\Models\Banner;
 use Auth;
 use Hash;
 use Stripe;
+use Session;
 use App\Models\Order;
-use App\Models\Cart;
+use App\Models\Cart;    
 use App\Models\Product;
 use App\Models\Address;
 use App\Models\About;
@@ -71,7 +72,7 @@ class FrontEndController extends Controller
     public function addressSelect(Request $request)
     {
         $id = $request->id;
-        $addresses = Address::where('user_id', auth()->user()->id)
+        $addresses = Address::where('user_id', Auth::user()->id)
         ->where('id', '!=', $id)
         ->get();
         foreach($addresses as $a) {
@@ -102,9 +103,9 @@ class FrontEndController extends Controller
     // checkout
     public function checkout() {
     
-        $cart = Cart::where('user_id', auth()->user()->id)->get();
-        $addresses = Address::where('user_id', auth()->user()->id)->where('deleted_at', null)->get();
-        $selectedAddress = Address::where('user_id', auth()->user()->id)->where('status', 1)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
+        $addresses = Address::where('user_id', Auth::user()->id)->where('deleted_at', null)->get();
+        $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
         return view('frontend.checkout', compact('cart', 'addresses', 'selectedAddress'));
         
     }
@@ -118,7 +119,9 @@ class FrontEndController extends Controller
                'product_id' => 'required',
            ]
         );
-        $oldCart = Cart::where('user_id', auth()->user()->id)->where('product_id', $request->product_id)->first();
+        $oldCart = Cart::where('user_id', Auth::user()->id)
+        ->where('product_id', $request->product_id)
+        ->first();
         if ($oldCart != null) {
             $oldCart->quantity = $oldCart->quantity + $request->quantity;
             $oldCart->update();
@@ -127,7 +130,7 @@ class FrontEndController extends Controller
         }
         $cart = new Cart();
         $cart->quantity = $request->quantity;
-        $cart->user_id = auth()->user()->id;
+        $cart->user_id = Auth::user()->id;
         $cart->product_id = $request->product_id;
         $cart->save();
         toastr()->success("Item added to cart successfully.");
@@ -139,7 +142,7 @@ class FrontEndController extends Controller
        $cart = Cart::find($request->cart_id);
        $cart->quantity = $cart->quantity + 1;
        $cart->update();
-       toastr()->success("Item Added to Cart.");
+       toastr()->success("Item added to cart.");
        return redirect()->back();
     }
 
@@ -152,7 +155,7 @@ class FrontEndController extends Controller
             $cart->quantity = $cart->quantity - 1;
             $cart->update(); 
         }
-        toastr()->success("Item Removed from Cart.");
+        toastr()->success("Item removed from cart.");
         return redirect()->back();
     }
 
@@ -161,7 +164,7 @@ class FrontEndController extends Controller
         $cart = Cart::find($request->cart_id);
         $cart->delete();
 
-       toastr()->success("Item Deleted from Cart.");
+       toastr()->success("Item deleted from cart.");
        return redirect()->back();
     }
 
@@ -264,12 +267,18 @@ class FrontEndController extends Controller
         $donation = new Donation();
         $donation->transaction_id = $stripe->id;
         $donation->amount = $stripe->amount/100;
-        if (auth()->check()) {
-            $donation->user_id = Auth()->user()->id;
+        if (Auth::check()) {
+            $donation->user_id = Auth::user()->id;
         } else {
             $donation->user_id = 0; // Anonymous Donation.
         }
         $donation->save();
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp'
+        ];
+        // dd(Auth::user()->email);
+        \Mail::to("chaos1.champ@gmail.com")->send(new \App\Mail\DonationReceivedMail($details));
         // id: "ch_3KybHtHryki7BTj30R4QV57P"
         // object: "charge"
         // amount: 10000
@@ -321,18 +330,11 @@ class FrontEndController extends Controller
         Session::flash('success', 'Payment successful!');
           
         return redirect()->back();
-    }
-
-    public function placeOrder(Request $request) {
-        // dd($request->all());
-        $order = new Order();
-        $order->quantity = $request->quantity;
-        
-    }
+    } 
 
     public function myAddresses() {
-        $addresses = Address::where('deleted_at', null)->where('user_id', auth()->user()->id)->get();
-        $selectedAddress = Address::where('user_id', auth()->user()->id)->where('status', 1)->first();
+        $addresses = Address::where('deleted_at', null)->where('user_id', Auth::user()->id)->get();
+        $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
         return view('frontend.dashboard.myAddresses', compact('addresses', 'selectedAddress'));
     }
 
@@ -370,7 +372,7 @@ class FrontEndController extends Controller
     }
 
     public function myCart() {
-        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
         return view('frontend.dashboard.myCart', compact('cart'));
     }
 
@@ -379,21 +381,21 @@ class FrontEndController extends Controller
     }
 
     public function myDonations() {
-        $donations = Donation::where('user_id', auth()->user()->id)->get();
+        $donations = Donation::where('user_id', Auth::user()->id)->get();
         return view('frontend.dashboard.myDonations', compact('donations'));
     }
 
     public function myOrders() {
-        $orders = Order::where('user_id', auth()->user()->id)->get();
+        $orders = Order::where('user_id', Auth::user()->id)->get();
         return view('frontend.dashboard.myOrders', compact('orders'));
     }
 
     // placeOrder from the cart items
     public function placeCartOrder(Request $request) {
-        dd($request->all());
+        // dd($request->all());
         
-        $selectedAddress = Address::where('user_id', auth()->user()->id)->where('status', 1)->first();
-        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->get();
         $allQuantities = 0;
         $productIds = [];
         $totalCostBeforeTax = 0;
@@ -401,9 +403,10 @@ class FrontEndController extends Controller
         foreach( $cart as $c) {
             $allQuantities+=$c->quantity;
             array_push($productIds, $c->product_id);
-            $totalCostBeforeTax += ($item->quantity * $item->product->price);
+            $totalCostBeforeTax += ($c->quantity * $c->product->price);
         }
-        $totalCostAfterTax = $totalCostBeforeTax*0.13;
+        $totalCostAfterTax = $totalCostBeforeTax + $totalCostBeforeTax*0.13;
+        // dd($totalCostAfterTax);
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $stripe = Stripe\Charge::create ([
                 "amount" => $totalCostAfterTax * 100,
@@ -420,18 +423,22 @@ class FrontEndController extends Controller
         }
         $order = new Order();
         $order->quantities = $allQuantities;
-        $order->product_ids = implode($productIds,',');
+        $order->product_ids = implode(',', $productIds);
         $order->discount = 0;
         $order->total_cost = $totalCostAfterTax;
-        $order->shipping_address_id = $selectedaddress->id;
+        $order->shipping_address_id = $selectedAddress->id;
         $order->billing_address_id = $selectedAddress->id;
         $order->payment_method = "stripe";
-        $order->user_id = auth()->user()->id;
+        $order->user_id = Auth::user()->id;
         $order->status = "placed";
         $order->transaction_id = $stripe->id;
         $order->type = "multiple";
+        $order->order_id = 1;
         $order->save();
-        return view('frontend.order.placeOrder', compact('cart', 'addresses', 'selectedAddress'));
+        foreach($cart as $c) {
+            $c->delete();
+        }
+        return view('frontend.order.placeOrder', compact('cart', 'selectedAddress'));
         
     }
 
@@ -439,25 +446,26 @@ class FrontEndController extends Controller
 
     public function placeDirectOrder(Request $request) {
         dd($request->all());
-        $selectedAddress = Address::where('user_id', auth()->user()->id)->where('status', 1)->first();
+        $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
         $product = Product::find($request->product_id);
         $totalCostBeforeTax = $product->price;
         $totalCostAfterTax = 0; 
-        $totalCostAfterTax = $totalCostBeforeTax*0.13;
+        $totalCostAfterTax = $totalCostBeforeTax + $totalCostBeforeTax*0.13;
         $order = new Order();
         $order->quantities = 1;
         $order->product_ids = $request->product_id;
         $order->discount = 0;
         $order->total_cost = $totalCostAfterTax;
-        $order->shipping_address_id = $selectedaddress->id;
+        $order->shipping_address_id = $selectedAddress->id;
         $order->billing_address_id = $selectedAddress->id;
         $order->payment_method = "stripe";
-        $order->user_id = auth()->user()->id;
+        $order->user_id = Auth::user()->id;
         $order->status = "placed";
         $order->transaction_id = $stripe->id;
+        $order->order_id = 1;
         $order->type = "multiple";
         $order->save();
-        return view('frontend.order.placeOrder', compact('cart', 'addresses', 'selectedAddress'));
+        return view('frontend.order.placeOrder', compact('cart', 'selectedAddress'));
     }
     
 }

@@ -12,13 +12,13 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Order Id</th>
+                            {{-- <th>Order Id</th> --}}
                             <th>Product X qty</th> 
                             <th>Total</th> 
                             <th>Payment Method</th> 
                             <th>User</th> 
                             <th>Status</th> 
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -26,37 +26,45 @@
                         <tr>
                           {{-- {{dd($item)}} --}}
                             <td>{{ $loop->iteration }}</td>
-                            <td> {{ $item->order_id }}</td>
+                            {{-- <td> {{ $item->order_id }}</td> --}}
                             <td>
                               @php
-                              $product_ids = explode(',',$item->product_ids);
+                            //   dd($item);
+                              $productIds = explode(',',$item->product_ids);
                               $i=0;
                               $quantities = explode(',',$item->quantities);
-                              // dd($quantities);
+                            //   dd($quantities);
                               @endphp
-                              @foreach($product_ids as $prod)
+                              @foreach($productIds as $prod)
                               @php 
-                              $product_detail = product_detail($prod);
+                                $productDetail = \App\Models\Product::find($prod);
+                                // dd($quantities);    
                               @endphp
-                              <a href="{{url('/product/'.$product_detail->slug.'')}}" target="_blank">{{$product_detail->title}}</a> X {{$quantities[$i]}} 
-                              @php $i++;
+                              <a href="{{url('/product/'.$productDetail->slug.'')}}" 
+                                target="_blank">
+                                {{$productDetail->title}}
+                              </a> X 
+                              {{isset($quantities[$i])
+                              ? $quantities[$i] 
+                              : ''}} 
+                              @php 
+                                $i++;
                               @endphp
                               <br>
                               @endforeach
                             </td> 
                             <td>Rs. {{$item->total_cost}}</td>
                             <td>{{$item->payment_method}}</td>
-                            <td>{{user_detail($item->user_id)->name}}, {{user_detail($item->user_id)->email}}</td>
+                            <td>{{$item->user->name}} <b>|</b> {{$item->user->email}}</td>
                             <td>
-                              <select name="status" id="orderStatus" item_id="{{$item->id}}">
-                                <option value="pending" @if($item->status=="pending") selected @endif>Pending</option>
-                                <option value="refund"  @if($item->status=="refund") selected @endif>Refund</option>
-                                <option value="cancelled"  @if($item->status=="cancelled") selected @endif>Cancelled</option>
-                                <option value="delivered"  @if($item->status=="delivered") selected @endif>Delivered</option>
+                              <select name="status" id="orderStatus" class="form-control" item_id="{{$item->id}}">
+                                <option value="placed" @if($item->status=="placed") selected @endif>Placed</option>
+                                <option value="delivered" @if($item->status=="delivered") selected @endif>Delivered</option>
+                                <option value="ontheway" @if($item->status=="ontheway") selected @endif>On the Way</option>
                               </select>
                             </td>
-                            <td>
-                                <a href="{{ url('admin/order/detail/' . $item->id) }}" title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a>
+                             {{-- <td>
+                               <a href="{{ url('admin/order/detail/' . $item->id) }}" title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a> --}}
                                {{--  <a href="{{ url('/admin/order/' . $item->id . '/edit') }}" title="Edit User"><button class="mb-2 mr-2 btn btn-shadow-info btn-warning"><i class="pe-7s-edit" aria-hidden="true"></i></button></a>
                                 {!! Form::open([
                                     'method' => 'DELETE',
@@ -69,8 +77,8 @@
                                             'title' => 'Delete User',
                                             'onclick'=>'return confirm("Confirm delete?")'
                                     )) !!}
-                                {!! Form::close() !!} --}}
-                            </td>
+                                {!! Form::close() !!} 
+                            </td>--}}
                         </tr>
                     @endforeach
                     </tbody>

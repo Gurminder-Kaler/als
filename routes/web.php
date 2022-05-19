@@ -41,7 +41,8 @@ Route::controller(FrontEndController::class)->group(function () {
         Route::post('/submitDonation', 'submitDonation');
         Route::get('/myAddresses', 'myAddresses');
         Route::get('/myProfile', 'myProfile');
-        Route::post('/placeOrder', 'placeOrder');
+        Route::post('/placeCartOrder', 'placeCartOrder');
+        Route::post('/placeDirectOrder', 'placeDirectOrder');
         Route::get('/checkout', 'checkout')->middleware(['checkout','checkAddress']);
         Route::get('/myCart', 'myCart'); 
         Route::get('/changePassword', 'changePasswordView');  

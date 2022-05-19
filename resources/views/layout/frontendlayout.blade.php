@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="{{asset('frontend/assets/css/owl.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/assets/css/flex-slider.css')}}"> 
   @yield('head')
-  {{-- @yield('toastr_css') --}}
 </head>
 <body>
 @include('common.preheader')

@@ -16,7 +16,7 @@
         @if(isset($cart) && $cart->count() > 0)
         <div class="col-12">
           <table class="table table-striped">
-            <thead>
+            <thead class="text-center">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Product Name</th>
@@ -27,7 +27,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
               @foreach($cart as $item)
               <tr>
                 <th scope="row">{{$loop->iteration}}</th>

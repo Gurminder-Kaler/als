@@ -5,7 +5,13 @@
 @section('body') 
 <div class="container">
     <div class="row">
-        <div class="col-8 offset-2" style="margin-top: 74px;margin-bottom: 34px;padding: 15px; border: 1px solid grey">
+        <div class="col-12">
+            <div class="section-heading">
+              <div class="line-dec"></div>
+              <h1>My Profile</h1>
+            </div>
+          </div>
+        <div class="col-8 offset-2" style="margin-top: 14px;margin-bottom: 34px;padding: 15px; border: 1px solid grey">
             @php
             $user = Auth::user();
             @endphp
