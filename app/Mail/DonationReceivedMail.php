@@ -6,19 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Donation;
 
 class DonationReceivedMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Donation $query)
     {
         //
+        $this->query = $query;
     }
 
     /**
@@ -28,6 +32,8 @@ class DonationReceivedMail extends Mailable
      */
     public function build()
     {   
-        return $this->view('frontend.email.donationReceived');
+
+        $donation = $this->query;
+        return $this->view('frontend.email.donationReceived', compact('donation'));
     }
 }

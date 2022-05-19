@@ -258,7 +258,7 @@ class FrontEndController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "Test payment from itsolutionstuff.com." 
         ]);
-        // dd($stripe);
+
         if ($stripe->failure_code !== null) {
 
             Session::flash('failure', $stripe->failure_message);
@@ -273,12 +273,11 @@ class FrontEndController extends Controller
             $donation->user_id = 0; // Anonymous Donation.
         }
         $donation->save();
-        $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp'
-        ];
+        // $details = [
+        //     'donation' => $donation,
+        // ];
         // dd(Auth::user()->email);
-        \Mail::to("chaos1.champ@gmail.com")->send(new \App\Mail\DonationReceivedMail($details));
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\DonationReceivedMail($donation));
         // id: "ch_3KybHtHryki7BTj30R4QV57P"
         // object: "charge"
         // amount: 10000

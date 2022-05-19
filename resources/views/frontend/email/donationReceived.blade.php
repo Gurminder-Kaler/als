@@ -20,14 +20,15 @@
             </div>
             <div class="text" style="background-color:rgba(186,84,153,0.5); padding:5%; border:2px; border-color:rgba(186,84,153,0.5); border-style:dashed; margin-top:5%;">
                 <p>Hi <strong> X </strong></p>
-                <p> We have recieved your donation.</p>
+                <p> We have recieved your donation of amount CAD ${{$donation->amount}}.</p>
+                <p> Transaction Id : {{$donation->transaction_id}}</p>
                 <p> We are realy <strong>grateful</strong> for your help.
                     Together we can raise knowlege and provide support for animals.
-                    <p><strong>Bests</strong><br> <a href="index.html" style="text-decoration:none; color:black; font-weight:bold;">Animal Lovers Society</a></p>
+                <p><strong>Bests</strong><br> <a href="{{url('/')}}" style="text-decoration:none; color:black; font-weight:bold;">Animal Lovers Society</a></p>
             </div>
             <div class="image" style=border:2px;padding-top:5%;>
                 <img src="the-lucky-neko-uePn9YCTCY0-unsplash.jpg" alt="Thank You" style=width:200px;>
-                <img src="	eric-ward-ISg37AI2A-s-unsplash.jpg" alt="Thank You" style=width:200px;>
+                <img src="eric-ward-ISg37AI2A-s-unsplash.jpg" alt="Thank You" style=width:200px;>
             </div>
         </div>
     </main>

@@ -20,8 +20,21 @@
     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}">
+    {!! Form::label('role', 'Role: ', ['class' => 'control-label']) !!} 
+    <select name="roles[]" id="roles" class="form-control mt-3">
+        <option value="staff">STAFF</option>
+        <option value="member">MEMBER</option>
+        <option value="employee">EMPLOYEE</option>
+    </select>
+</div>
+<div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}">
     {!! Form::label('role', 'Role: ', ['class' => 'control-label']) !!}
-    {!! Form::select('roles[]', ['donor', 'staff' , 'member'], isset($user_roles) ? $user_roles : [], ['class' => 'form-control', 'multiple' => true]) !!}
+    {{-- {!! Form::select('roles[]', ['staff', 'member', 'employee'], isset($user_roles) ? $user_roles : [], ['class' => 'form-control mt-3']) !!} --}}
+    <select name="roles[]" id="roles" class="form-control mt-3">
+        <option value="staff">STAFF</option>
+        <option value="member">MEMBER</option>
+        <option value="employee">EMPLOYEE</option>
+    </select>
 </div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}

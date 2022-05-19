@@ -8,49 +8,26 @@
             {{-- <a href="{{ url('/admin/donation/create') }}" class="mb-2 mr-2 btn-hover-shine btn btn-sm btn-shadow btn-primary add_new_buton" title="Add New User">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add New
             </a>  --}}
-
             <br/>
             <br/>
             <div class="table-responsive">
                 <table class="table" id="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Category/Brand</th>
-                            <th>Cost/Discount</th>
-                            <th>Image</th>
-                            <th>Best Seller Status</th>
-                            <th>Actions</th>
+                            <th>#</th>
+                            <th>Amount Donated</th>
+                            <th>Transaction Id</th>
+                            <th>Created At</th>
                         </tr>
                     </thead>
                     <tbody>
                     @if(isset($donations) && $donations->count() > 0)
-                        @foreach($donations as $item)
+                        @foreach($donations as $d)
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->category ? $item->category->title : '-' }}</td>
-                                {{-- <td>{{fetch_category($item->category_id)->title}} / {{ fetch_brand($item->brand_id)->title}}</td> --}}
-                                <td>$ {{$item->price}}/ {{$item->discount}} %</td>
-                                <td><img src="{{asset('/storage/donation/'.$item->img.'')}}" style="height: 60px;width: 80px"></td>
-                                <td><input type="checkbox" class="bestSellerStatus" value="{{$item->id}}" @if($item->best_seller==1) checked @endif></td>
-                                <td>
-                                    {{-- <a href="{{ url('/donation/' . $item->id) }}" title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a> --}}
-                                    <a href="{{ url('/admin/donation/edit/' . $item->id . '') }}" title="Edit User"><button class="mb-2 mr-2 btn btn-shadow-info btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button></a>
-                                    {!! Form::open([
-                                        'method' => 'DELETE',
-                                        'url' => ['/admin/donation', $item->id],
-                                        'style' => 'display:inline'
-                                    ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i>', array(
-                                                'type' => 'submit',
-                                                'class' => 'btn-sm mb-2 mr-2 btn btn-shadow-info btn-danger',
-                                                'title' => 'Delete User',
-                                                'onclick'=>'return confirm("Confirm delete?")'
-                                        )) !!}
-                                    {!! Form::close() !!}
-                                </td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$d->amount}}</td>
+                                <td>{{$d->transaction_id}}</td>
+                                <td>{{$d->created_at}}</td>
                             </tr>
                         @endforeach
                     @else 
@@ -66,7 +43,6 @@
                     @endif
                     </tbody>
                 </table>
-                <div class="pagination"> {!! $donations->appends(['search' => Request::get('search')])->render() !!} </div>
             </div>
 
         </div>

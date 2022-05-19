@@ -25,14 +25,11 @@
                   </thead>
                   <tbody>
                     @foreach($donations as $a)
-                    <tr>
-                      {{-- {{dd($selectedAddress)}} --}}
-                    
+                    <tr> 
                       <td>{{$loop->iteration}}</td>
                       <td>{{$a->amount}}</td>
                       <td>{{$a->transaction_id}}</td>
                       <td>{{$a->created_at}}</td>
-                      {{-- <td>{{$a->type}}</td> --}}
                     </tr> 
                     @endforeach
                   </tbody>

@@ -73,6 +73,7 @@
           </li>
           <li class="nav-item" >
             <a class="nav-link text-danger"
+            href="javascript:void(0)"
             onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
             <i class="fa fa-power-off"></i> {{ __('Logout') }}
