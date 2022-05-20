@@ -166,6 +166,12 @@
                                     <p>Donations</p>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ url('admin/donationCause') }}">
+                                    <i class="fa fa-question"></i>
+                                    <p>Donation Causes</p>
+                                </a>
+                            </li>
                             {{-- <li class="nav-item ">
                                 <a class="nav-link" href="{{ url('admin/locationdirectory') }}">
                                     <i class="fa fa-globe"></i>

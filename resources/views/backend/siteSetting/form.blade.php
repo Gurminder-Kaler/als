@@ -80,7 +80,7 @@
                 <img src="{{url('/storage/logo/'.$siteSetting->logo.'')}}" alt="" style="height:140px;width:130px">
             </div>
             <div class="col-md-12">
-                <input class="form-control" type="file"  name="logo" />
+                <input class="" type="file"  name="logo" />
             </div>
             </div>
         </div> 

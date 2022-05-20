@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductCategoryController;
 use App\Http\Controllers\Backend\DonationController;
+use App\Http\Controllers\Backend\DonationCauseController;
 use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Middleware\Admin;
@@ -65,7 +66,7 @@ Route::middleware([Admin::class])
     Route::get('/admin/dashboard', 'dashboard');
     Route::get('/admin/donation', 'donation');
 });
- 
+
 Route::middleware([Admin::class])
 ->controller(ProductController::class)
 ->group(function () {
@@ -141,6 +142,17 @@ Route::middleware([Admin::class])
     Route::get('/admin/donation/edit/{id}', 'edit');
     Route::post('/admin/donation/update/{id}', 'update');
     Route::post('/admin/donation/delete/{id}', 'delete');
+});
+ 
+Route::middleware([Admin::class])
+->controller(DonationCauseController::class)
+->group(function () {
+    Route::get('/admin/donationCause', 'index');
+    Route::get('/admin/donationCause/create', 'create');
+    Route::post('/admin/donationCause/store', 'store');
+    Route::get('/admin/donationCause/edit/{id}', 'edit');
+    Route::post('/admin/donationCause/update/{id}', 'update');
+    Route::post('/admin/donationCause/delete/{id}', 'delete');
 });
 
 Route::get('/stripe', [DonationController::class, 'stripe']); 
