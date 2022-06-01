@@ -57,7 +57,7 @@
                             <td>{{$item->payment_method}}</td>
                             <td>{{$item->user->name}} <b>|</b> {{$item->user->email}}</td>
                             <td>
-                              <select name="status" id="orderStatus" class="form-control" item_id="{{$item->id}}">
+                              <select name="status" class="orderStatus form-control" item_id="{{$item->id}}">
                                 <option value="placed" @if($item->status=="placed") selected @endif>Placed</option>
                                 <option value="delivered" @if($item->status=="delivered") selected @endif>Delivered</option>
                                 <option value="ontheway" @if($item->status=="ontheway") selected @endif>On the Way</option>
@@ -94,13 +94,13 @@
      var table = $('#table').DataTable({
         'responsive': true
     });
-     $('#orderStatus').on('change',function(e){
+     $('.orderStatus').on('change',function(e){
       var id = $(this).attr('item_id');
       var value = $(this).val();
-      e.preventDefault();
+      // e.preventDefault();
       $.ajax({
                 type: "POST",
-                url: "/admin/changeOrderStatus",
+                url: "/admin/order/changeOrderStatus",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

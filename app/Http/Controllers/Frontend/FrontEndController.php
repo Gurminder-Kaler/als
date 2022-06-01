@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Address;
 use App\Models\About;
 use App\Models\SiteSetting;
+use App\Models\DonationCause;
 use App\Models\Subscriber;
 use App\Models\Donation;
 use App\Models\User;
@@ -46,7 +47,8 @@ class FrontEndController extends Controller
 
     // donation page
     public function donate() {
-        return view('frontend.donate');
+        $donationCauses = DonationCause::all();
+        return view('frontend.donate', compact('donationCauses'));
     }
 
     // single - product page
@@ -66,6 +68,12 @@ class FrontEndController extends Controller
     // contact page
     public function contact() {
         return view('frontend.contact');
+    } 
+    
+    // contact page
+    public function singleDonationCause($slug) {
+        $donationCause = DonationCause::where('slug', $slug)->first();
+        return view('frontend.singleDonationCause', compact('donationCause'));
     } 
     
     //select the address in the frontend
@@ -395,12 +403,12 @@ class FrontEndController extends Controller
         
         $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
         $cart = Cart::where('user_id', Auth::user()->id)->get();
-        $allQuantities = 0;
+        $allQuantities = [];
         $productIds = [];
         $totalCostBeforeTax = 0;
         $totalCostAfterTax = 0;
         foreach( $cart as $c) {
-            $allQuantities+=$c->quantity;
+            array_push($allQuantities, $c->quantity);
             array_push($productIds, $c->product_id);
             $totalCostBeforeTax += ($c->quantity * $c->product->price);
         }
@@ -421,7 +429,7 @@ class FrontEndController extends Controller
             return redirect()->back();
         }
         $order = new Order();
-        $order->quantities = $allQuantities;
+        $order->quantities = implode(',', $allQuantities);
         $order->product_ids = implode(',', $productIds);
         $order->discount = 0;
         $order->total_cost = $totalCostAfterTax;

@@ -20,11 +20,34 @@
             </div>
             <div class="text" style="background-color:rgba(186,84,153,0.5); padding:5%; border:2px; border-color:rgba(186,84,153,0.5); border-style:dashed; margin-top:5%;">
                 <p>Hi <strong> X </strong></p>
-                <p> We have recieved your donation of amount CAD ${{$donation->amount}}.</p>
-                <p> Transaction Id : {{$donation->transaction_id}}</p>
-                <p> We are really <strong>grateful</strong> for your help.
+                <p> Product(s): .</p>
+                @php
+                //   dd($order);
+                  $productIds = explode(',',$order->product_ids);
+                  $i=0;
+                  $quantities = explode(',',$order->quantities);
+                  @endphp
+                  @foreach($productIds as $prod)
+                  @php
+                    $productDetail = \App\Models\Product::find($prod);
+                    // dd($quantities);    
+                  @endphp
+                  <a href="{{url('/product/'.$productDetail->slug.'')}}" 
+                    target="_blank">
+                    {{$productDetail->title}}
+                  </a> X 
+                  {{isset($quantities[$i])
+                  ? $quantities[$i] 
+                  : ''}} 
+                  @php 
+                    $i++;
+                  @endphp
+                  <br>
+                  @endforeach
+                <strong>Your order number {{$order->id}}, status has changed to {{$order->status}}.</strong>
+                <p> We are really grateful for your help.
                     Together we can raise knowlege and provide support for animals.
-                <p><strong>Bests</strong><br> <a href="{{url('/')}}" style="text-decoration:none; color:black; font-weight:bold;">Animal Lovers Society</a></p>
+                <p><strong>Yours Lovely,</strong><br> <a href="{{url('/')}}" style="text-decoration:none; color:black; font-weight:bold;">Animal Lovers Society</a></p>
             </div>
             <div class="image" style=border:2px;padding-top:5%;>
                 <img src="the-lucky-neko-uePn9YCTCY0-unsplash.jpg" alt="Thank You" style=width:200px;>

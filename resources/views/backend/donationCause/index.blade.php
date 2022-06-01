@@ -16,8 +16,8 @@
                                 <th>ID</th>
                                 <th>Cause Title</th>
                                 <th>Cause Description</th>
-                                <th>Cause Amount</th>
-                                <th>Cause Duration</th>
+                                <th>Max. Amount</th>
+                                <th>Cause Duration in Days</th>
                                 <th>Cause Image</th>
                                 <th>Actions</th>
                             </tr>
@@ -28,15 +28,15 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->title }}</td>
-                                <td>{{ $item->desc }}</td>
-                                <td>{{ $item->amount }}</td>
+                                <td>{!! $item->desc !!}</td>
+                                <td>{{ $item->maximum_amount }}</td>
                                 <td>{{ $item->duration }}</td>
-                                <td>{{ $item->img }}</td>
+                            <td><img src="{{url('/storage/donationCause/'.$item->img.'')}}"  style="width:70px; height: 60px"/></td>
                                 
                                 <td>
                                     <a href="{{ url('/admin/donationCause/edit/' . $item->id . '') }}" title="Edit "><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                     {!! Form::open([
-                                        'method' => 'DELETE',
+                                        'method' => 'POST',
                                         'url' => ['/admin/donationCause/delete', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}

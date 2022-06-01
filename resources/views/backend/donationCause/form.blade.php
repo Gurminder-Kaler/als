@@ -10,20 +10,23 @@
     {!! $errors->first('desc', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group{{ $errors->has('amount') ? 'has-error' : ''}}">
-    {!! Form::label('amount', 'Amount :', ['class' => 'control-label']) !!} <br>
-    {!! Form::number('amount', null, ('required' == 'required') ? ['class' => 'form-control' ] : ['class' => 'form-control']) !!}
-    {!! $errors->first('desc', '<p class="help-block">:message</p>') !!}
+<div class="form-group{{ $errors->has('maximum_amount') ? 'has-error' : ''}}">
+    {!! Form::label('maximum_amount', 'Maximum Amount :', ['class' => 'control-label']) !!} <br>
+    {!! Form::number('maximum_amount', null, ('required' == 'required') ? ['class' => 'form-control' ] : ['class' => 'form-control']) !!}
+    {!! $errors->first('maximum_amount', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-    {!! Form::label('duration', 'Duration :', ['class' => 'control-label']) !!} <br>
+    {!! Form::label('duration', 'Duration in Days :', ['class' => 'control-label']) !!} <br>
     {!! Form::number('duration', null, ('required' == 'required') ? ['class' => 'form-control' ] : ['class' => 'form-control']) !!}
     {!! $errors->first('desc', '<p class="help-block">:message</p>') !!}
 </div>
+@if($formMode === 'edit')
+<img src="{{url('/storage/donationCause/'.$donationCause->img.'')}}" alt="{{$donationCause->img}}" style="widht:60px; height:70px" />
 
+@endif
 <div class="form-group{{ $errors->has('img') ? 'has-error' : ''}}">
-    {!! Form::label('img', 'Image :', ['class' => 'control-label']) !!} <br>
+    {!! Form::label('img', 'Image to show the Cause:', ['class' => 'control-label mt-5']) !!} 
     <input type="file" name="img" class="form-control">
     {!! $errors->first('img', '<p class="help-block">:message</p>') !!}
 </div>

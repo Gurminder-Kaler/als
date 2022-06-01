@@ -24,7 +24,40 @@
 @section('body')
 <div class="container">
     <div class="row my-5">
-        <div class="col-6 offset-3">
+        <div class="col-6">
+            <div class="panel panel-default credit-card-box ">
+                <div class="panel-heading display-table my-4" >
+                    <div class="row display-tr" >
+                        <h3 class="panel-title display-td" >Donation Cause</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">    
+                <div id="accordion">
+                    @if(isset($donationCauses))
+                        @foreach($donationCauses as $donationCause)
+                        <div class="card">
+                            <div class="card-header" id="{{$donationCause->id}}">
+                                <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne{{$donationCause->id}}" aria-expanded="true" aria-controls="collapseOne{{$donationCause->id}}">
+                                {{$donationCause->title}}
+                                </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="collapseOne{{$donationCause->id}}" class="collapse @if($loop->first) show @endif" aria-labelledby="{{$donationCause->id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                <img style="height: 160px;width: 190px" src="{{url('/storage/donationCause/'.$donationCause->img.'')}}" alt="{{$donationCause->img}}">
+                                <a class="btn btn-sm btn-dark" href="{{url('/donate/'.$donationCause->slug .'')}}">Show More <i class="fa fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
             <div class="panel panel-default credit-card-box ">
                 <div class="panel-heading display-table my-4" >
                     <div class="row display-tr" >
@@ -68,7 +101,7 @@
                                 <input autocomplete='off' value="123" class='form-control card-cvc' placeholder='ex. 311' size='4'
                                     type='text'>
                             </div>
-                            <div class='col-6 form-group expiration required'>
+                            <div class='col-6 form-group expiration requi   red'>
                                 <label class='control-label'>Expiration Month</label>
                                 {{-- <input  class='form-control card-expiry-month' placeholder='MM' size='2'
                                     type='text'> --}}

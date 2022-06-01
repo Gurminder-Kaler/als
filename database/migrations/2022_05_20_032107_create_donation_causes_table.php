@@ -16,6 +16,7 @@ class CreateDonationCausesTable extends Migration
         Schema::create('donation_causes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->text('desc')->comment('this is the description field');
             $table->float('duration');
             $table->float('maximum_amount');

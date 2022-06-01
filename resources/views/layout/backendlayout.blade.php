@@ -66,7 +66,7 @@
 <div id="wrapper">
     <div class="sidebar" data-color="rose" data-background-color="black" style="background-image: url('{{asset('backend/img/sidebar-4.jpg')}}') " >
         <div class="logo text-center"> 
-            <a href="/admin" class="simple-text logo-normal">
+            <a href="{{url('/admin/dashboard')}}" class="simple-text logo-normal">
                 ALS
             </a>
         </div>

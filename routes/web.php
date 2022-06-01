@@ -29,6 +29,7 @@ Route::controller(FrontEndController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/about', 'about');
     Route::get('/contact', 'contact');
+    Route::get('/donate/{slug}', 'singleDonationCause');
     Route::get('/donate', 'donate');
     Route::get('/products', 'allProducts');
     Route::get('/privacy-policy', 'privacyPolicy');
@@ -105,6 +106,8 @@ Route::middleware([Admin::class])
 
     Route::get('/download/invoice/{order_id}', 'download_invoice');
     Route::get('/admin/order', 'index');
+    Route::post('/admin/order/changeOrderStatus', 'changeOrderStatus');
+    Route::get('/admin/test/email/{id}', 'testEmail');
 });
  
  
