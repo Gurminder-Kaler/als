@@ -11,16 +11,8 @@
     <title>{{ config('app.name', 'ALS') }}</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    {{-- <link href="{{asset('backend/css/demo.css') }}" rel="stylesheet"> --}}
-    {{-- <link href="https://www.dropzonejs.com/css/dropzone.css?v=1533562669" rel="s   tylesheet"> --}}
     <link href="{{asset('backend/css/material-dashboard.minf066.css?v=2.1.0') }}" rel="stylesheet">
     <link href="{{asset('backend/css/custom.css') }}" rel="stylesheet">
-    {{-- <link href="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"> --}}
-
-
-    {{-- <link rel="stylesheet" href="{{asset('backend/css/review.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"> --}}
-    {{-- <link href="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <style>
         .editable-error-block.help-block {
@@ -149,6 +141,13 @@
                     <a class="nav-link" href="{{ url('admin/site-setting') }}">
                         <i class="fa fa-cog"></i>
                         <p> Site Settings </p>
+                    </a>
+                </li>
+
+                <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/department') }}">
+                        <i class="fa fa-building-o"></i>
+                        <p> Manage Department </p>
                     </a>
                 </li>
 
@@ -316,13 +315,9 @@
 <script src="{{asset('backend/js/plugins/jquery.dataTables.min.js') }}"></script>
 
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-{{-- <script src="../../../cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script> --}}
 <!-- Library for adding dinamically elements -->
 <script src="{{asset('backend/js/plugins/arrive.min.js') }}"></script>
-<!--  Google Maps Plugin    -->
-{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script> --}}
 <!-- Place this tag in your head or just before your close body tag. -->
-{{-- <script async defer src="../../../buttons.github.io/buttons.js"></script> --}}
 <!-- Chartist JS -->
 <script src="{{asset('backend/js/plugins/chartist.min.js') }}"></script>
 <script src="{{asset('backend/js/plugins/tinymce/tinymce.min.js') }}"></script>
@@ -333,180 +328,7 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{asset('backend/demo/demo.js') }}"></script>
 <script src="{{asset('backend/js/custom.js') }}"></script>
-{{-- <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script> --}}
-{{-- <script src="{{asset('backend/assets/js/plugins/ckfinder/ckfinder.js')}}"></script>
-<script src="{{asset('backend/assets/js/plugins/ckeditor/ckeditor.js')}}"></script> --}}
-{{-- <script src="https://www.dropzonejs.com/js/dropzone.js?v=1533562669"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-{{--<script src="https://vitalets.github.io/x-editable/assets/x-editable/bootstrap3-editable/js/bootstrap-editable.js"></script> --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> --}}
 @yield('afterScript')
-{{-- <script>
-    $(document).ready(function() {
-
-        $('.checkbox-check').change(function() {
-            //$("#hit_this").hide();
-            if($(this).is(":checked")) {
-                $("#hit_this").show();
-            }  else
-            {
-                $("#hit_this").hide();
-            }
-        });
-
-        $(".lock_status").on('click',function() {
-            var id = $(this).attr('id');
-            // var id = $(this).attr('id');
-            // console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "/admin/lock_status",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: id
-                },
-                success: function (res) {
-                }
-            });
-        });
-
-        $(".approve_btn").on('click',function() {
-            var id = $(this).attr('id');
-            // var id = $(this).attr('id');
-            // console.log(id);
-            if(confirm("You want to approve this?")){
-            $.ajax({
-                type: "POST",
-                url: "/admin/approve_btn",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: id
-                },
-                success: function (res) {
-                if(res.success){
-                    $('#'+id).hide();
-                }
-                }
-            });
-            } else {
-                return false;
-            }
-        });
-
-        $(".sliderStatus").on('click',function() {
-            var id = $(this).attr('id');
-            // var id = $(this).attr('id');
-            // console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "/admin/sliderStatus",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: id
-                },
-                success: function (res) {
-                }
-            });
-        }); 
-
-        $(".featuredStatus").on('click',function() {
-            var id = $(this).attr('id');
-            // var id = $(this).attr('id');
-            // console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "featuredStatus",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id: id
-
-                },
-                success: function (res) {
-
-                }
-            });
-        });
-
-        $('#txtInput').keydown(function(event) {
-            var wordLen = 27,
-                len; // Maximum word length
-            len = $('#txtInput').val().split(/[\s]+/);
-            if (len.length > wordLen) {
-                if ( event.keyCode == 46 || event.keyCode == 8 ) {// Allow backspace and delete buttons
-                } else if (event.keyCode < 48 || event.keyCode > 57 ) {//all other buttons
-                    event.preventDefault();
-                }
-            }
-            // console.log(len.length + " words are typed out of an available " + wordLen);
-            wordsLeft = (wordLen) - len.length;
-            $('.words-left').html(wordsLeft+ ' words left');
-            if(wordsLeft == 0) {
-                $('.words-left').css({
-                    'background':'red'
-                }).prepend('<i class="fa fa-exclamation-triangle"></i>');
-            }else{
-                $('.words-left').css({
-                    'background':'green' });
-            }
-        });
-
-    });
-
-    $(document).on('change', '.file-field input[type="file"]', function () {
-        var file_field = $(this).closest('.file-field');
-        var path_input = file_field.find('input.file-path');
-        var files      = $(this)[0].files;
-        var file_names = [];
-        for (var i = 0; i < files.length; i++) {
-            file_names.push(files[i].name);
-        }
-        path_input.val(file_names.join(", "));
-        path_input.trigger('change');
-    });
-
-    bkLib.onDomLoaded(function() {
-        nicEditors.editors.push(
-            new nicEditor().panelInstance(
-                document.getElementById('myNicEditor')
-            )
-        );
-    });
-
-
-    bkLib.onDomLoaded(function() {
-        nicEditors.editors.push(
-            new nicEditor().panelInstance(
-                document.getElementById('myNicEditor1')
-            )
-        );
-    });
-
-    bkLib.onDomLoaded(function() {
-        nicEditors.editors.push(
-            new nicEditor().panelInstance(
-                document.getElementById('myNicEditor2')
-            )
-        );
-    });
-
-</script> --}}
-
-{{-- <script>
-function initAutocomplete() {
-
-    autocomplete = new google.maps.places.Autocomplete(
-        (document.getElementById('autocomplete')),
-        {types:['geocode']});
-}
-</script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt2dLBEA6MCSnQZV1_1LOZiMga5QjDI_k&libraries=places&callback=initAutocomplete"></script>  --}}
 </body>
 </html>

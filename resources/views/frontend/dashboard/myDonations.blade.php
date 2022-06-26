@@ -19,6 +19,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Donation Amount($)</th>
+                      <th scope="col">Donation Cause</th>
                       <th scope="col">Transaction Id</th>
                       <th scope="col">Date and Time</th>
                     </tr>
@@ -26,9 +27,14 @@
                   <tbody>
                     @foreach($donations as $a)
                     <tr> 
-                      <td>{{$loop->iteration}}</td>
+                      <td>{{($donations->count() - $loop->iteration)+1}}</td>
                       <td>{{$a->amount}}</td>
-                      <td>{{$a->transaction_id}}</td>
+                      @php 
+                      $slug = $a->donationCause ? $a->donationCause->slug : '-';
+                      $title = $a->donationCause ? $a->donationCause->title : '-';
+                      @endphp
+                      <td><a href="{{url('/donate/'.$slug.'')}}">{{$title}}</a></td>
+                      <td>{{$a->transaction_id}}</td> 
                       <td>{{$a->created_at}}</td>
                     </tr> 
                     @endforeach

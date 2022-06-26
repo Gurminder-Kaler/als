@@ -12,4 +12,10 @@ class Donation extends Model
     public function user() {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+    
+
+    public function donationCause() {
+        return $this->belongsTo('App\Models\DonationCause', 'donation_cause_id', 'id');
+    }
+
 }

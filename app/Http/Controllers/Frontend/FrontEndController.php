@@ -15,7 +15,7 @@ use App\Models\Address;
 use App\Models\About;
 use App\Models\SiteSetting;
 use App\Models\DonationCause;
-use App\Models\Subscriber;
+use App\Models\Subscriber;  
 use App\Models\Donation;
 use App\Models\User;
 use App\Models\ContactQuery;
@@ -47,7 +47,7 @@ class FrontEndController extends Controller
 
     // donation page
     public function donate() {
-        $donationCauses = DonationCause::all();
+        $donationCauses = DonationCause::orderBy('created_at', 'desc')->get();
         return view('frontend.donate', compact('donationCauses'));
     }
 
@@ -274,6 +274,7 @@ class FrontEndController extends Controller
         }
         $donation = new Donation();
         $donation->transaction_id = $stripe->id;
+        $donation->donation_cause_id = $request->donation_cause_id;
         $donation->amount = $stripe->amount/100;
         if (Auth::check()) {
             $donation->user_id = Auth::user()->id;
@@ -388,7 +389,7 @@ class FrontEndController extends Controller
     }
 
     public function myDonations() {
-        $donations = Donation::where('user_id', Auth::user()->id)->get();
+        $donations = Donation::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
         return view('frontend.dashboard.myDonations', compact('donations'));
     }
 
