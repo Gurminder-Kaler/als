@@ -16,6 +16,7 @@
                         <tr>
                             <th>#</th>
                             <th>Amount Donated</th>
+                            <th>Donated By</th>
                             <th>Transaction Id</th>
                             <th>Created At</th>
                         </tr>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$d->amount}}</td>
+                                <td>{{$d->user ? $d->user->name : ''}} / {{$d->user ? $d->user->gender : ''}}</td>
                                 <td>{{$d->transaction_id}}</td>
                                 <td>{{$d->created_at}}</td>
                             </tr>

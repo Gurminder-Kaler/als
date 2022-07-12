@@ -5,7 +5,7 @@
     <div class="card mb-3">
         <div class="card-header"><h3>Products' List</h3></div>
         <div class="card-body">
-            <a href="{{ url('/admin/product/create') }}" class="mb-2 mr-2 btn-hover-shine btn btn-sm btn-shadow btn-primary add_new_buton" title="Add New User">
+            <a href="{{ url('/admin/product/create') }}" class="mb-2 mr-2 btn-hover-shine btn btn-sm btn-shadow btn-primary add_new_buton" title="Add New Product">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add New
             </a> 
 
@@ -36,17 +36,17 @@
                                 <td><img src="{{asset('/storage/product/'.$item->img.'')}}" style="height: 60px;width: 80px"></td>
                                 <td><input type="checkbox" class="featuredStatus" value="{{$item->id}}" @if($item->featured_status==1) checked @endif></td>
                                 <td>
-                                    {{-- <a href="{{ url('/product/' . $item->id) }}" title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a> --}}
-                                    <a href="{{ url('/admin/product/edit/' . $item->id . '') }}" title="Edit User"><button class="mb-2 mr-2 btn btn-shadow-info btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button></a>
+                                    {{-- <a href="{{ url('/product/' . $item->id) }}" title="View Product"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look" aria-hidden="true"></i></button></a> --}}
+                                    <a href="{{ url('/admin/product/edit/' . $item->id . '') }}" title="Edit Product"><button class="mb-2 mr-2 btn btn-shadow-info btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></button></a>
                                     {!! Form::open([
-                                        'method' => 'DELETE',
-                                        'url' => ['/admin/product', $item->id],
+                                        'method' => 'POST',
+                                        'url' => ['/admin/product/delete', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
                                         {!! Form::button('<i class="fa fa-trash" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
                                                 'class' => 'btn-sm mb-2 mr-2 btn btn-shadow-info btn-danger',
-                                                'title' => 'Delete User',
+                                                'title' => 'Delete Product',
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
                                     {!! Form::close() !!}
