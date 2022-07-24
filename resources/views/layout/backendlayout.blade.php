@@ -84,6 +84,13 @@
                 </li>
 
                 <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/banner') }}">
+                        <i class="material-icons">slideshow</i>
+                        <p> Banner Manager </p>
+                    </a>
+                </li>
+
+                <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/user') }}">
                         <i class="fa fa-users"></i>
                         <p> Users </p>
@@ -140,14 +147,28 @@
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/site-setting') }}">
                         <i class="fa fa-cog"></i>
-                        <p> Site Settings </p>
+                        <p>Site Settings</p>
                     </a>
                 </li>
 
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/department') }}">
                         <i class="fa fa-building-o"></i>
-                        <p> Manage Department </p>
+                        <p>Manage Department</p>
+                    </a>
+                </li>
+
+                <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/project') }}">
+                        <i class="fa fa-product-hunt"></i>
+                        <p>Manage Project</p>
+                    </a>
+                </li>
+
+                <li class="nav-item" style="background: #000">
+                    <a class="nav-link" href="{{ url('admin/jobTitle') }}">
+                        <i class="fa fa-black-tie"></i>
+                        <p>Manage JobTitle</p>
                     </a>
                 </li>
 
@@ -180,13 +201,36 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item" style="background: #2169b3;">
+                    <a data-toggle="collapse" href="#collapseExample3235" class="nav-link">
 
-                <li class="nav-item" style="background: #000">
-                    <a class="nav-link" href="{{ url('admin/banner') }}">
-                        <i class="material-icons">slideshow</i>
-                        <p> Banner Manager </p>
+                        <i class="fa fa-calendar"></i> <p>Manage Queries and Subscriptions <b class="caret"></b></p>
+
                     </a>
+                    <div class="collapse" id="collapseExample3235">
+                        <ul class="nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ url('admin/donation') }}">
+                                    <i class="fa fa-dollar"></i>
+                                    <p>Newsletter Subscriptions</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ url('admin/donationCause') }}">
+                                    <i class="fa fa-question"></i>
+                                    <p>Contact Queries</p>
+                                </a>
+                            </li>
+                            {{-- <li class="nav-item ">
+                                <a class="nav-link" href="{{ url('admin/locationdirectory') }}">
+                                    <i class="fa fa-globe"></i>
+                                    <p> </p>
+                                </a>
+                            </li> --}}
+                        </ul>
+                    </div>
                 </li>
+                
 
             </ul>
         </div>
@@ -249,11 +293,11 @@
                             </div>
                         @endif
 
-                        @if (Session::has('flash_message1'))
+                        @if (Session::has('error_message'))
                             <div class="container">
                                 <div class="alert alert-danger">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    {{ Session::get('flash_message1') }}
+                                    {{ Session::get('error_message') }}
                                 </div>
                             </div>
                         @endif

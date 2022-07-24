@@ -27,7 +27,6 @@
                             <input type="file" name="profile_photo" />
                         </div>
                     </div>
-
                     <div class="row p-2">
                         <div class="col-4">
                             Name
@@ -68,7 +67,7 @@
                     <a class="btn btn-sm btn-dark" href="{{url('/myDonations')}}"><i class="fa fa-smile-o"></i> My Donations</a>
                 </div>
                 <div class="col-3">
-                    <a class="btn btn-sm btn-dark" href="{{url('/myOrders')}}"><i class='fas fa-box-open'></i> My Orders</a>
+                    <a class="btn btn-sm btn-dark" href="{{url('/myOrders')}}"><i class='fa fa-list'></i> My Orders</a>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Edit User</div>
+                    <div class="card-header">Edit Employee</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/user') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
@@ -22,7 +22,7 @@
                         @endif
 
                         {!! Form::model($user, [
-                            'method' => 'PATCH',
+                            'method' => 'POST',
                             'url' => ['/admin/user', $user->id],
                             'class' => 'form-horizontal'
                         ]) !!}

@@ -43,4 +43,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function checkIfMember($user_id)
+    {
+        if ($user_id) {
+            $donationAmountByUser = Donation::where('user_id', $user_id)->where('deleted_at', null)->get()->sum('amount');
+            if ($donationAmountByUser > 100) {
+                return true;
+            }
+            return false;
+        }
+    }
 }

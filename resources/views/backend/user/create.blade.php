@@ -5,9 +5,9 @@
         <div class="row">
             {{--@include('backend.sidebar')--}}
 
-            <div class="col-md-9">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Create New User</div>
+                    <div class="card-header">Create New Employee</div>
                     <div class="card-body">
                         <a href="{{ url('/admin/user') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
@@ -21,7 +21,11 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/user', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open([
+                            'method' => 'POST',
+                            'url' => ['/admin/user/store'],
+                            'class' => 'form-horizontal'
+                        ]) !!}
 
                         @include ('backend.user.form', ['formMode' => 'create'])
 
