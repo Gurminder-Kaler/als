@@ -68,6 +68,8 @@ Route::middleware([Admin::class])
     ->group(function () {
         Route::get('/admin/dashboard', 'dashboard');
         Route::get('/admin/donation', 'donation');
+        Route::get('/admin/newsletterSubscription', 'newsletterSubscription');
+        Route::get('/admin/contactQuery', 'contactQuery');
     });
 
 Route::middleware([Admin::class])

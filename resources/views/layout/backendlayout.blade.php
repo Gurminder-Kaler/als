@@ -74,7 +74,6 @@
                     </span>
                 </div>
             </div>
-
             <ul class="nav" style="background: #0000008f;">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/dashboard') }}">
@@ -82,28 +81,24 @@
                         <p> Dashboard </p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/banner') }}">
                         <i class="material-icons">slideshow</i>
                         <p> Banner Manager </p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/user') }}">
                         <i class="fa fa-users"></i>
                         <p> Users </p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/about') }}">
                         <i class="fa fa-users"></i>
                         <p> About </p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #2169b3;">
                     <a data-toggle="collapse" href="#collapseExample3" class="nav-link">
 
@@ -112,13 +107,13 @@
                     </a>
                     <div class="collapse" id="collapseExample3">
                         <ul class="nav">
-                            <li class="nav-item ">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('admin/product') }}">
                                     <i class="fa fa-product-hunt"></i>
                                     <p>Products</p>
                                 </a>
                             </li> 
-                            <li class="nav-item ">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('admin/productCategory') }}">
                                     <i class="fa fa-product-hunt"></i>
                                     <p>Product Category</p>
@@ -127,14 +122,13 @@
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item" style="background: #2169b3;">
                     <a data-toggle="collapse" href="#collapseExample44" class="nav-link">
                         <i class="material-icons">inventory</i> <p>Manage Orders <b class="caret"></b></p>
                     </a>
                     <div class="collapse" id="collapseExample44">
                         <ul class="nav">
-                            <li class="nav-item ">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('admin/order') }}">
                                     <i class="material-icons">inventory</i>
                                     <p>Orders</p>
@@ -143,35 +137,30 @@
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/site-setting') }}">
                         <i class="fa fa-cog"></i>
                         <p>Site Settings</p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/department') }}">
                         <i class="fa fa-building-o"></i>
                         <p>Manage Department</p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/project') }}">
                         <i class="fa fa-product-hunt"></i>
                         <p>Manage Project</p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #000">
                     <a class="nav-link" href="{{ url('admin/jobTitle') }}">
                         <i class="fa fa-black-tie"></i>
                         <p>Manage JobTitle</p>
                     </a>
                 </li>
-
                 <li class="nav-item" style="background: #2169b3;">
                     <a data-toggle="collapse" href="#collapseExample3235" class="nav-link">
 
@@ -192,46 +181,30 @@
                                     <p>Donation Causes</p>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link" href="{{ url('admin/locationdirectory') }}">
-                                    <i class="fa fa-globe"></i>
-                                    <p> </p>
-                                </a>
-                            </li> --}}
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item" style="background: #2169b3;">
-                    <a data-toggle="collapse" href="#collapseExample3235" class="nav-link">
-
-                        <i class="fa fa-calendar"></i> <p>Manage Queries and Subscriptions <b class="caret"></b></p>
-
+                    <a data-toggle="collapse" href="#collapseExam1" class="nav-link">
+                        <i class="fa fa-calendar"></i> <p>Queries and Subs <b class="caret"></b></p>
                     </a>
-                    <div class="collapse" id="collapseExample3235">
+                    <div class="collapse" id="collapseExam1">
                         <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="{{ url('admin/donation') }}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('admin/newsletterSubscription') }}">
                                     <i class="fa fa-dollar"></i>
                                     <p>Newsletter Subscriptions</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="{{ url('admin/donationCause') }}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('admin/contactQuery') }}">
                                     <i class="fa fa-question"></i>
                                     <p>Contact Queries</p>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link" href="{{ url('admin/locationdirectory') }}">
-                                    <i class="fa fa-globe"></i>
-                                    <p> </p>
-                                </a>
-                            </li> --}}
                         </ul>
                     </div>
                 </li>
-                
-
             </ul>
         </div>
     </div>
@@ -255,13 +228,13 @@
                 <div class="collapse navbar-collapse justify-content-end">
                     <ul class="navbar-nav">
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-itemdropdown">
                             <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{-- {{Auth::user()->name}} --}}
+                                
                                 ALS
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                {{-- <a href=""> </a> --}}
+                             
                                 <a class="dropdown-item" href="{{ url('/logout') }}"  onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();"><i class="mdi mdi-logout m-r-5 text-muted"></i>
                                     Logout
@@ -278,12 +251,9 @@
             </div>
         </nav>
         <div class="content">
-
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-md-12">
-
                         @if (Session::has('flash_message'))
                             <div class="container">
                                 <div class="alert alert-success">
@@ -292,7 +262,6 @@
                                 </div>
                             </div>
                         @endif
-
                         @if (Session::has('error_message'))
                             <div class="container">
                                 <div class="alert alert-danger">
@@ -301,9 +270,7 @@
                                 </div>
                             </div>
                         @endif
-
                         @yield('body')
-
                     </div>
                 </div>
             </div>
