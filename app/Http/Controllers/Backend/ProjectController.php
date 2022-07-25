@@ -93,8 +93,8 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::findOrFail($id);
-
-        return view('backend.project.edit', compact('project'));
+        $departments = Department::all();
+        return view('backend.project.edit', compact('project', 'departments'));
     }
 
     public function update(Request $request, $id)
