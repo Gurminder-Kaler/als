@@ -259,7 +259,8 @@ class FrontEndController extends Controller
 
     public function submitDonation(Request $request)
     {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        Stripe\Stripe::setApiKey('pk_test_51KxqnAHryki7BTj3xWyCo3dvrCuuDeyBt7JIAEqdae09Jze1ZwcRExc8bQXSOWzRp5XKrmuDpu5Hz5uBCfzbP2Su00f7ZveTNO');
+        // Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $stripe = Stripe\Charge::create ([
                 "amount" => $request->amount * 100,
                 "currency" => "usd",
@@ -415,7 +416,8 @@ class FrontEndController extends Controller
         }
         $totalCostAfterTax = $totalCostBeforeTax + $totalCostBeforeTax*0.13;
         // dd($totalCostAfterTax);
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        // Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        Stripe\Stripe::setApiKey('pk_test_51KxqnAHryki7BTj3xWyCo3dvrCuuDeyBt7JIAEqdae09Jze1ZwcRExc8bQXSOWzRp5XKrmuDpu5Hz5uBCfzbP2Su00f7ZveTNO');
         $stripe = Stripe\Charge::create ([
                 "amount" => $totalCostAfterTax * 100,
                 "currency" => "usd",

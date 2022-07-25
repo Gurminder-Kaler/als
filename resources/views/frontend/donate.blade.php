@@ -82,7 +82,7 @@
                         method="post"`
                         class="require-validation"
                         data-cc-on-file="false"
-                        data-stripe-publishable-key="{{ env('STRIPE_PUBLISHABLE_KEY') }}"
+                        data-stripe-publishable-key="pk_test_51KxqnAHryki7BTj3xWyCo3dvrCuuDeyBt7JIAEqdae09Jze1ZwcRExc8bQXSOWzRp5XKrmuDpu5Hz5uBCfzbP2Su00f7ZveTNO"
                         id="payment-form">
                         @csrf
 
@@ -201,7 +201,7 @@ $(function() {
 
         if (!$form.data('cc-on-file')) {
           e.preventDefault();
-          Stripe.setPublishableKey("{{env('STRIPE_PUBLISHABLE_KEY')}}");
+          Stripe.setPublishableKey("pk_test_51KxqnAHryki7BTj3xWyCo3dvrCuuDeyBt7JIAEqdae09Jze1ZwcRExc8bQXSOWzRp5XKrmuDpu5Hz5uBCfzbP2Su00f7ZveTNO");
           Stripe.createToken({
             number: $('.card-number').val(),
             cvc: $('.card-cvc').val(),
