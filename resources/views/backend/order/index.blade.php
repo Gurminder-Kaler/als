@@ -11,8 +11,7 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        {{-- <th>Order Id</th> --}}
+                        <th>ID</th> 
                         <th>Product X qty</th>
                         <th>Total</th>
                         <th>Payment Method</th>
@@ -25,30 +24,29 @@
                 </thead>
                 <tbody>
                     @foreach($orders as $item)
-                        <tr>
-                            {{-- {{dd($item) }} --}}
-                            <td>{{ $loop->iteration }}</td>
-                            {{-- <td> {{ $item->order_id }}</td> --}}
+                        <tr> 
+                            <td>{{ $loop->iteration }}</td> 
                             <td>
                                 @php
-                                    // dd($item);
-                                    $productIds = explode(',',$item->product_ids);
+                                  
+                                    $productIds = explode(',', $item->product_ids);
                                     $i=0;
-                                    $quantities = explode(',',$item->quantities);
-                                    // dd($quantities);
+                                    $quantities = explode(',', $item->quantities); 
                                 @endphp
-                                @foreach($productIds as $prod)
+                                @foreach($productIds as $prod) 
                                     @php
                                         $productDetail = \App\Models\Product::find($prod);
-                                        // dd($quantities);
+                                        if ($productDetail) {
+                                            $slug = $productDetail->slug ? $productDetail->slug : '';
+                                        }
                                     @endphp
-                                    <a href="{{ url('/product/'.$productDetail->slug.'') }}"
-                                        target="_blank">
-                                        {{ $productDetail->title }}
-                                    </a> X
-                                    {{isset($quantities[$i])
-                              ? $quantities[$i] 
-                              : ''}}
+                                    @if($productDetail)
+                                        <a href="
+                                        {{ url('/product/'.$slug.'') }}" target="_blank">
+                                            {{ $productDetail->title }}
+                                        </a> X
+                                        {{isset($quantities[$i])  ? $quantities[$i]   : ''}}
+                                    @endif
                                     @php
                                         $i++;
                                     @endphp
@@ -63,17 +61,17 @@
                                     <option value="placed" @if($item->status=="placed") selected @endif>Placed
                                     </option>
                                     <option value="delivered" @if($item->status=="delivered") selected
-                    @endif>Delivered</option>
-                    <option value="ontheway" @if($item->status=="ontheway") selected @endif>On the
-                        Way</option>
-                    </select>
-                    </td>
-                    <td>
-                        {{$item->created_at}}
-                    </td>
-                    <td>
-                        {{$item->updated_at}}
-                    </td>
+                                        @endif>Delivered</option>
+                                    <option value="ontheway" @if($item->status=="ontheway") selected @endif>On the
+                                        Way</option>
+                                </select>
+                            </td>
+                            <td>
+                                {{$item->created_at}}
+                            </td>
+                            <td>
+                                {{$item->updated_at}}
+                            </td>
                     {{-- <td>
                                <a href="{{ url('admin/order/detail/' . $item->id) }}"
                     title="View User"><button class="mb-2 mr-2 btn btn-shadow-info btn-info"><i class="pe-7s-look"

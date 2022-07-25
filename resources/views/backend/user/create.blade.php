@@ -7,7 +7,7 @@
 
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Create New Employee</div>
+                    <div class="card-header"><h3>Create New Employee</h3></div>
                     <div class="card-body">
                         <a href="{{ url('/admin/user') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />

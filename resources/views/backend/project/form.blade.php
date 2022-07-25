@@ -76,7 +76,7 @@
 
                 <img src="{{ asset('/storage/project/'.$project->img.'') }}"
                     alt="" style="height: 100px; width: 120px" />
-                <input type="file" name="img" />
+                <input type="file" name="img" @if(!$project->img) required @endif />
             </div>
         </div>
     </div>
@@ -85,8 +85,11 @@
         <span style="color: red">(Can be left empty)</span><br />
 
         @php
-        $project_img = explode(';',$project->images); 
+        if ($project->images !="") {
+            $project_img = explode(';', $project->images); 
+        }
         @endphp
+            @if(isset($project_img))
             @foreach($project_img as $img)
                 <div class="col s3">
                     <input type="hidden" style="display: none" name="img_c[]" value="{{ $img }}" />
@@ -96,6 +99,7 @@
                     <a class="btn btn-sm btn-danger text-white" onclick="$(this).parent().remove()">Remove</a>
                 </div>
             @endforeach
+            @endif
             <div class="row" style="border: 1px solid pink; padding: 24px; margin: 2px">
                 <div class="col-md-6">
                     <p>

@@ -2,42 +2,15 @@
 @section('body')
 
 <div class="container">
-    <div class="row">
-        {{--@include('backend.sidebar')--}}
-        <div class="page-title">
-            <h3 class="breadcrumb-header">
-                Edit Project 
-                <a
-                    href="{{ url('/admin/project/create') }}"
-                    class="btn btn-primary btn-sm btn-dark"
-                    title="Add New"
-                >
-                    <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                </a>
-                <a href="{{ url('/admin/project') }}" title="Back"
+    <div class="row"> 
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><a href="{{ url('/admin/project') }}" title="Back"
                     ><button class="btn btn-danger btn-sm">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
                     </button></a
                 >
-                 {{--
-                <span class="pull-right">
-                    {!! Form::open([ 'method' => 'DELETE', 'url' =>
-                    ['/admin/project/delete', $project->id], 'style' =>
-                    'display:inline' ]) !!} {!! Form::button('<i
-                        class="fa fa-trash-o"
-                        aria-hidden="true"
-                    ></i
-                    >', array( 'type' => 'submit', 'class' => 'btn btn-danger
-                    btn-sm', 'title' => 'Delete', 'onclick'=>'return
-                    confirm("Confirm delete?")' )) !!} {!! Form::close()
-                    !!}</span
-                >
-                --}}
-            </h3>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Edit Project</div>
+                <h3>Edit Project</h3> </div>
                 <div class="card-body">
                     @if ($errors->any())
                     <ul class="alert alert-danger">

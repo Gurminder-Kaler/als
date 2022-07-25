@@ -81,7 +81,7 @@ Route::middleware([Admin::class])
         Route::post('/admin/product/featuredStatus', 'changeFeaturedStatus');
         Route::post('/admin/product/store', 'store');
         Route::get('/admin/product/edit/{id}', 'edit');
-        Route::post('/admin/product/update', 'update');
+        Route::post('/admin/product/update/{id}', 'update');
         Route::post('/admin/product/delete/{id}', 'delete');
     });
 

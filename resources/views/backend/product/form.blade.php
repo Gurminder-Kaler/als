@@ -96,7 +96,7 @@
       @foreach($product_img as $img)
       <div class="col s3">
       <input type="hidden" style="display:none" name="img_c[]" value="{{$img}}">
-         <img class="product_img{{$img}}" style="width:100px;height: 70px" src="{{asset('/storage/product/images/'.$img.'') }}" alt="...">
+         <img class="product_img{{$img}}" style="width:100px;height: 70px" src="{{asset('/storage/product/'.$img.'') }}" alt="...">
          <a class="btn btn-sm btn-danger text-white" onclick="$(this).parent().remove()">Remove</a>
 
       </div>

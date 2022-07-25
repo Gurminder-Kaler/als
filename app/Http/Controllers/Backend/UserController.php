@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\JobTitle;
 use App\Models\EmployeeDetail;
+use App\Models\ProjectEmployeeDetail;
 use App\Models\EmployeeDetailJob;
 
 class UserController extends Controller
@@ -23,7 +24,6 @@ class UserController extends Controller
     // user create
     public function create()
     {
-
         $departments = Department::where('deleted_at', null)->get();
         $jobTitles = JobTitle::where('deleted_at', null)->get();
         return view('backend.user.create', compact('departments', 'jobTitles'));
@@ -32,6 +32,18 @@ class UserController extends Controller
     // user store
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'gender' => 'required',
+                'password' => 'required',
+                'email' => 'required',
+                'salary' => 'required',
+                'job_title_id' => 'required',
+                'project_id' => 'required',
+            ]
+        );
         $user = new User();
         $user->name = $request->name;
         $user->gender = $request->gender;
@@ -46,7 +58,13 @@ class UserController extends Controller
                 $job = new EmployeeDetailJob();
                 $job->job_title_id = $request->job_title_id;
                 $job->employee_detail_id = $employeeDetail->id;
-                $job->save();
+                if ($job->save()) {
+                    $projectEmployeeDetail = new ProjectEmployeeDetail();
+                    $projectEmployeeDetail->project_id = $request->project_id;
+                    $projectEmployeeDetail->employee_detail_id = $employeeDetail->id;
+                    $projectEmployeeDetail->save();
+                }
+
                 return redirect('/admin/user')->with('flash_message', 'Employee Created Successfully');
             } else {
                 return redirect()->back()->with('error_message', 'Something went wrong!');

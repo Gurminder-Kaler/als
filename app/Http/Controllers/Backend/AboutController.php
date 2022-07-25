@@ -31,6 +31,12 @@ class AboutController extends Controller
     public function update(Request $request)
     { 
             //    dd($request->all());
+            $this->validate(
+                $request,
+                [
+                    'about' => 'required'
+                ]
+            );
             $data= About::find(1); 
             $data->about = $request->about;
             if($request->hasfile('img'))

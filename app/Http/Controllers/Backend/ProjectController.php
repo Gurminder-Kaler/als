@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Str;
 use App\Models\Project;
-use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\ProjectDepartment;
 
@@ -37,7 +37,7 @@ class ProjectController extends Controller
                 $html .= '<option value="' . $pd->project_id . '">' . $pd->project->title . '</option>';
             }
         } else {
-            $html .= '<option value="no Option"> No Options found in this department </option>';
+            $html .= '<option > No Options found in this department </option>';
         }
         $html .= "</select> ";
         return ['success' => true, 'html' => $html];
