@@ -18,6 +18,18 @@ class SiteSettingController extends Controller
  
    public function update(Request $request)
    { 
+      $this->validate(
+         $request,
+         [
+             'address' => 'required',
+             'contact_email' => 'required',
+             'phone_one' => 'required',
+             'website' => 'required',
+             'privacy_policy' => 'required',
+             'map_address' => 'required',
+             'whatsapp' => 'required',
+         ]
+     );
       $data = SiteSetting::find(1);
       $data->address = $request->address;
       $data->contact_email = $request->contact_email;

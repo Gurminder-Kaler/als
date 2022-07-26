@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-md-6">
                     <fieldset>
-                      <input required name="contact_query_email" type="text" class="form-control" id="email" placeholder="Your email...">
+                      <input required name="contact_query_email" type="email" class="form-control" id="email" placeholder="Your email...">
                     </fieldset>
                   </div>
                   <div class="col-md-12">

@@ -30,26 +30,26 @@ class AboutController extends Controller
 
     public function update(Request $request)
     { 
-            //    dd($request->all());
-            $this->validate(
-                $request,
-                [
-                    'about' => 'required'
-                ]
-            );
-            $data= About::find(1); 
-            $data->about = $request->about;
-            if($request->hasfile('img'))
-                {
-                $image = $request->file('img');
-                $img = time().$image->getClientOriginalName();
-                $path = 'storage/about/';
-                $upload = $image->move($path, $img);
-                $data->img = $img;
-                }
+        //    dd($request->all());
+        $this->validate(
+            $request,
+            [
+                'about' => 'required'
+            ]
+        );
+        $data= About::find(1); 
+        $data->about = $request->about;
+        if($request->hasfile('img'))
+            {
+            $image = $request->file('img');
+            $img = time().$image->getClientOriginalName();
+            $path = 'storage/about/';
+            $upload = $image->move($path, $img);
+            $data->img = $img;
+            }
 
-            $data->update();
-            return redirect('admin/about')->with('flash_message', 'About Updated Successfully.');
+        $data->update();
+        return redirect('admin/about')->with('flash_message', 'About Updated Successfully.');
     }
  
 }

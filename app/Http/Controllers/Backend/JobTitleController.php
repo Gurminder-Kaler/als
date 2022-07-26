@@ -53,6 +53,12 @@ class JobTitleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+            ]
+        );
         $data = JobTitle::find($id);
         $data->title = $request->title;
         $data->update();

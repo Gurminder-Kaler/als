@@ -15,7 +15,6 @@ class AdminController extends Controller
     // admin dashboard
     public function dashboard()
     {
-
         $totalNoOfUsers = User::all()->count();
         $totalNoOfDonors = User::where('role', 'donor')->get()->count();
         $donations = Donation::all();

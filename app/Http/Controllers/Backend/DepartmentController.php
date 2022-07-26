@@ -53,6 +53,12 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+            ]
+        );
         $data = Department::find($id);
         $data->title = $request->title;
         $data->update();

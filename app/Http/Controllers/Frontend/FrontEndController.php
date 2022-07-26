@@ -455,7 +455,6 @@ class FrontEndController extends Controller
     //place order directly- when user presses PLACE ORDER button.
 
     public function placeDirectOrder(Request $request) {
-        dd($request->all());
         $selectedAddress = Address::where('user_id', Auth::user()->id)->where('status', 1)->first();
         $product = Product::find($request->product_id);
         $totalCostBeforeTax = $product->price;

@@ -24,19 +24,8 @@ class BannerController extends Controller
    }
 
    public function store(Request $request)
-   {
-    // dd($request->all());
-    //    $this->validate(
-    //        $request,
-    //        [
-    //            'title' => 'required',
-    //            'tagline' => 'required',
-    //        ]
-    //    );
-       $data = new Banner;
-    //    $data->title = $request->title;
-    //    $data->tagline = $request->tagline;
-    //    $data->rlink = $request->rlink;
+   { 
+       $data = new Banner; 
        if($request->hasfile('img'))
         {
            $image = $request->file('img');
