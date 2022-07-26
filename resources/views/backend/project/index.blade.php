@@ -16,6 +16,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th> 
+                        <th>Department</th> 
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -25,6 +26,16 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->title }}</td> 
+                                <td>
+                                    @php 
+                                        $projectDepartment = \App\Models\ProjectDepartment::where('project_id', $item->id)->first();
+                                    @endphp
+                                    @if($projectDepartment)
+                                    {{ $projectDepartment->project ? $projectDepartment->department->title : 'No Department assigned' }}
+                                    @else 
+                                    'Nothing to show'
+                                    @endif
+                                </td> 
                                 <td>
                                     <a href="{{ url('/admin/project/edit/' . $item->id . '') }}"
                                         title="Edit "><button class="btn btn-primary btn-sm">

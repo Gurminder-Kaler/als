@@ -17,6 +17,10 @@ class CreateEmployeeDetailsTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->float('salary');
+            $table->boolean('is_department_head');
+            $table->string("project_id")->nullable();
+            $table->string("department_id")->nullable();
+            $table->string("job_title_id")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

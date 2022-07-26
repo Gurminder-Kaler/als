@@ -55,4 +55,11 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function employeeDetail() {
+
+       return $this->belongsTo('App\Models\EmployeeDetail', 'id', 'user_id');
+
+    }
+ 
 }

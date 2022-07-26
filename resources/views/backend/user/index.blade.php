@@ -36,6 +36,8 @@
                         <th>Name</th>
                         <th>Role</th>
                         <th>Email</th>
+                        <th>Department & Job Title</th>
+                        <th>Is Department Head ?</th>
                         {{--
                                     <th>Actions</th>
                                     --}}
@@ -49,6 +51,20 @@
                                 <td>{{ $item->name }}</td>
                                 <td>@if($item->checkIfMember($item->id)) member @else {{ $item->role }} @endif</td>
                                 <td>{{ $item->email }}</td>
+                                <td>
+                                    @if( $item->role == "employee" )
+
+                                        {{$item->employeeDetail->department->title}}
+                                         ||
+                                        {{$item->employeeDetail->jobTitle->title}}
+
+                                    @endif
+                                </td>
+                                <td>
+                                    @if( $item->role == "employee" )
+                                    {{$item->employeeDetail->is_department_head == 1 ? 'Yes' : 'No'}}
+                                    @endif
+                                </td>
                                 {{--<td>
                                        
                                         <a

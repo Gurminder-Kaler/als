@@ -10,8 +10,6 @@
             >
                 <i class="fa fa-plus" aria-hidden="true"></i> Add New
             </a>
-
-            <br />
             <br />
             <div class="table-responsive">
                 <table class="table" id="table">

@@ -24,13 +24,17 @@
 <div
     class="{{ $errors->has('department_id') ? 'row has-error' : ' row' }}">
     {!! Form::label('department_id', 'Select Department: ', ['class' => 'col-6 control-label']) !!}
-
+    @if($formMode == 'edit') 
+        @php 
+        $projectDepartment = \App\Models\ProjectDepartment::where('project_id', $project->id)->first();
+        @endphp
+    @endif
     <div class="col-6">
         <select class="form-control" required name="department_id" id="department_id">
             <option value="0" selected disabled> No department selected</option>
             @if(isset($departments) && $departments->count() > 0)
                 @foreach($departments as $d)
-                    <option value="{{ $d->id }}">{{ $d->title }}</option>
+                    <option value="{{ $d->id }}" @if($formMode == 'edit') @if($d->id == $projectDepartment->department_id) selected @endif @endif>{{ $d->title }}</option>
                 @endforeach
             @endif
         </select>

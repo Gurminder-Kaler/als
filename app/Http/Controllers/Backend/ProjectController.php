@@ -20,7 +20,7 @@ class ProjectController extends Controller
     public function create()
     {
         $projects = Project::all();
-        $departments = Department::where('deleted_at', null)->get(); 
+        $departments = Department::where('deleted_at', null)->get();
         return view('backend.project.create', compact('projects', 'departments'));
     }
 
@@ -30,14 +30,14 @@ class ProjectController extends Controller
         $projectDepartments = ProjectDepartment::where('department_id', $department_id)->where('deleted_at', null)->get();
         // dd($projectDepartments);
         $html .= '<select class="form-control" id="project_id" required name="project_id">';
-        
+
         if (isset($projectDepartments) && $projectDepartments->count() > 0) {
+            $html .= '<option selected disabled >Select the project</option>';
             foreach ($projectDepartments as $pd) {
-                $html .= '<option selected disabled >Select the project</option>';
                 $html .= '<option value="' . $pd->project_id . '">' . $pd->project->title . '</option>';
             }
         } else {
-            $html .= '<option > No Options found in this department </option>';
+            $html .= '<option value=""> No Options found in this department </option>';
         }
         $html .= "</select> ";
         return ['success' => true, 'html' => $html];
@@ -79,7 +79,13 @@ class ProjectController extends Controller
             }
         }
 
-        $data->save();
+        if($data->save()) {
+
+            $projectDepartment = new ProjectDepartment();
+            $projectDepartment->department_id = $request->department_id;
+            $projectDepartment->project_id = $data->id;
+            $projectDepartment->save();
+        }
         return redirect('admin/project')->with('flash_message', 'Project Added Successfully.');
     }
 
@@ -136,7 +142,11 @@ class ProjectController extends Controller
                 $data->images = $image_str . ';' . $pimage_str;
             }
         }
-        $data->update();
+        if ($data->update()) {
+            $projectDepartment = ProjectDepartment::where('project_id', $id)->first();
+            $projectDepartment->department_id = $request->department_id;
+            $projectDepartment->update();
+        }
         return redirect('admin/project')->with('flash_message', 'Project Updated Successfully.');
     }
 

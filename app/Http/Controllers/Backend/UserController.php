@@ -54,21 +54,12 @@ class UserController extends Controller
             $employeeDetail = new EmployeeDetail();
             $employeeDetail->user_id = $user->id;
             $employeeDetail->salary = $request->salary;
-            if ($employeeDetail->save()) {
-                $job = new EmployeeDetailJob();
-                $job->job_title_id = $request->job_title_id;
-                $job->employee_detail_id = $employeeDetail->id;
-                if ($job->save()) {
-                    $projectEmployeeDetail = new ProjectEmployeeDetail();
-                    $projectEmployeeDetail->project_id = $request->project_id;
-                    $projectEmployeeDetail->employee_detail_id = $employeeDetail->id;
-                    $projectEmployeeDetail->save();
-                }
-
-                return redirect('/admin/user')->with('flash_message', 'Employee Created Successfully');
-            } else {
-                return redirect()->back()->with('error_message', 'Something went wrong!');
-            }
+            $employeeDetail->job_title_id = $request->job_title_id;
+            $employeeDetail->project_id = $request->project_id;
+            $employeeDetail->is_department_head = $request->is_department_head ? 1 : 0;
+            $employeeDetail->department_id = $request->department_id;
+            $employeeDetail->save();
+            return redirect('/admin/user')->with('flash_message', 'Successfully Created Employee!');;
         } else {
             return redirect()->back()->with('error_message', 'Something went wrong!');
         }
